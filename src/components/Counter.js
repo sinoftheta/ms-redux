@@ -1,0 +1,1 @@
+// counter will be used to display both the timer and the mines left values. it will have  'digits', 'point index' and  prop... idfk should I just pass it the value?
