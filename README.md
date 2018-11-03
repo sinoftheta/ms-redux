@@ -13,9 +13,13 @@ features:
 - race/vs mode?
 - total click counter
 
+Training mode: 
+notify on "useless" clicks
+
 and EXTENSIVE statistics filing like:
 (per game)
 - distribution of time between clicks
+- %not useless clicks. 
 - apm 
 
 (cumulative)
