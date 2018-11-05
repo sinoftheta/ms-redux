@@ -16,32 +16,38 @@ import Board from './components/Board';
 
 // REDUX //
 import { connect } from 'react-redux';
-import { setMenu } from './redux/actions';
+import { setMenu } from './actions/general';
 
 class App extends Component {
-  render() {
-    let overlay;
-    if(this.props.current_menu !== 0){ // if the app is in a menu, make the game area unclickable
-      overlay = <div id="overlay" onClick={ () => this.props.setMenu(0) }/>
-    }
-    return ( // man my html needs a fuckin refactor already lol
-      <div className="App">
-        <div id="game-area">
-			{/*<Timer/>*/}
-			<Board/>
-        </div>
+    render() {
+        let overlay;
+        if(this.props.current_menu !== 0){ // if the app is in a menu, make the game area unclickable
+            overlay = <div id="overlay" onClick={ () => this.props.setMenu(0) }/>
+        }
+        return ( // man my html needs a fuckin refactor already lol
+            <div className="App">
+                <div id="game-area">
+                    <div id="game-timer-bar">
+                        {/*<Timer/>*/}
+                        {/*<ResetButton/>*/}
+                        {/*<Timer/>*/}
+                    </div>
+			        <Board/>
+                </div>
 
-        {overlay}{/* needs to go above game area but below menus*/}
-
-        <div id="menu-area">
-			<MenuToggleButton/>
-        	<GenSettings/>
-        	{/* the oter menus*/}
-        </div>
+                {overlay}
         
-      </div>
-    );
-  }
+                {/* needs to go above game area but below menus*/}
+
+                <div id="menu-area">
+			        <MenuToggleButton/>
+        	        <GenSettings/>
+        	        {/* the oter menus*/}
+                </div>
+        
+            </div>
+        );
+    }
 }
 
 

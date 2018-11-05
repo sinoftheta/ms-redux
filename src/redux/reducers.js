@@ -44,7 +44,7 @@ const game_state = (state = 0, action) => { // 0: pre-game-idle, 1: in-progress,
 }
 
 
-const visible_board = ( state = matrix(16, 30, 9) , action) => { // default is just an advanced board, will change this later to read from a settings file.
+const board = ( state = matrix(16, 30, {}) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     //default value is 9, which will represent a covered tile. 10 is flag, 11 is "?"
     switch(action.type){
         //oh boy oh boy
@@ -52,11 +52,6 @@ const visible_board = ( state = matrix(16, 30, 9) , action) => { // default is j
             return state;
     }
 }
-
-const internal_board = (state = matrix(16, 30, 0) , action) => {
-
-}
-
 //const replay
 
 //const timer
@@ -73,7 +68,7 @@ export default combineReducers({
     current_menu,
     game_state,
 
-    visible_board,
+    board,
 
 
 

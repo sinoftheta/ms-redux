@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 // REDUX //
 import { connect } from 'react-redux';
-import { setMenu } from '../redux/actions';
+import { setMenu } from '../actions/general';
 
 // COMPONENTS //
 //import Tile from './components/Tile';
@@ -23,7 +23,7 @@ class Board extends Component {
                             //    y={j}
                             //    key={j}
                             ///>
-                            <div className="tile" id={ "" + i + "-" + j} key={j}/>
+                            <div className="tile" id={ "" + i + "_" + j} key={j}/>
 
                         )
                     }

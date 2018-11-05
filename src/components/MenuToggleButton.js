@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 // REDUX //
 import { connect } from 'react-redux';
-import { setMenu } from '../redux/actions';
+import { setMenu } from '../actions/general';
 
 class MenuToggleButton extends Component {
     behavior(){

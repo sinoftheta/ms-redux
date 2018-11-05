@@ -4,6 +4,14 @@ export const setMenu = (id) => {
         id: id,
     }
 }
+export const editSettings = (setting, value) => {
+    return{
+        type: 'EDIT_SETTING',
+        setting: setting,
+        value: value,
+    }
+}
+
 export const createNewClick = (x,y) => {
     return(dispatch, getState) => {
         //update board
@@ -27,7 +35,7 @@ export const createNewClick = (x,y) => {
 
 
 //need a dispatcher that applies click objects to board
-export const applyClickToBoards = (x,y) => {
+export const applyClickToBoard = (x,y) => {
     //meat of the game logic goes here
 
     //will dispatch actions that mutate both the visible and internal board
