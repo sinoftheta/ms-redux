@@ -45,9 +45,25 @@ const game_state = (state = 0, action) => { // 0: pre-game-idle, 1: in-progress,
 
 
 const board = ( state = matrix(16, 30, {}) , action) => { // default is just an advanced board, will change this later to read from a settings file.
-    //default value is 9, which will represent a covered tile. 10 is flag, 11 is "?"
     switch(action.type){
         //oh boy oh boy
+
+        // redux miiiiight make this kinda resource intensive idk
+        case 'SET_TILE_TO_MINE':
+            return [
+                ...state.slice(0, action.x),
+                [
+                    ...state[action.x].slice(0, action.y),
+                    {
+
+                    },
+                    ...state[action.x].slice(action.y + 1)
+                ],
+                ...state.slice( action.x + 1)
+
+            ];
+        case 'SET_BOARD_SIZE':
+            return matrix(action.height, action.width, {})
         default:
             return state;
     }

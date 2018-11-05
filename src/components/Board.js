@@ -12,8 +12,8 @@ class Board extends Component {
     render() {
 
         // map the visible board
-        //console.log(this.props.visible_board);
-        let board = this.props.visible_board.map((row, i) =>
+        //console.log(this.props.board);
+        let board = this.props.board.map((row, i) =>
             
                 <div id={"row-" + i} className="row" key={i}>
                     {
@@ -45,7 +45,7 @@ const mapStateToProps = (state) => {
     
     return {
         current_menu: state.current_menu, //might not need?
-        visible_board: state.visible_board,
+        board: state.board,
     };
   };
   
