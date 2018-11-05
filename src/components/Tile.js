@@ -9,15 +9,15 @@ class Tile extends Component {
 
     render() {
 
-        // tiles always report their clicks
-
+        // tiles are always able to report their clicks
         //the engine will determine what to do with the click depending on the game_state
+        //i.e. if its the first click of a game, or to ignore it...
 
-        //i.e. if its the first click of a game, or ignore to ignore it...
+        
         return (
             <div className="tile" id={ "" + this.props.x + "-" + this.props.y}
             onClick={/* dispatch generate click */}>
-                {}    
+                {/* graphics, if needed */}
             </div>
         );
     }

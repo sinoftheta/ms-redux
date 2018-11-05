@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import { setMenu } from '../redux/actions';
 
 class MenuToggleButton extends Component {
+
+    //fading menus: 
+
+    //in: mount then setTimoOut to apply class
+
+    //out: apply class then setTimeout to unmount.
     behavior(){
         switch(this.props.current_menu){
             default:
