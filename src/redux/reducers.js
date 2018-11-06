@@ -24,6 +24,12 @@ const matrix = ( rows, cols, defaultValue) => {
   
   return arr;
 }
+const tileInit = {
+        revealed: false,
+        flagged: false,
+        questioned: false,
+        val: 0 // # of mines surrounding tiles. 9 means a bomb
+}
 
 const current_menu = (state = 0, action) => { // 0 means no menu, each menu has a corresponding id
     switch(action.type){
@@ -44,26 +50,28 @@ const game_state = (state = 0, action) => { // 0: pre-game-idle, 1: in-progress,
 }
 
 
-const board = ( state = matrix(16, 30, {}) , action) => { // default is just an advanced board, will change this later to read from a settings file.
+const board = ( state = matrix(16, 30, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     switch(action.type){
         //oh boy oh boy
 
         // redux miiiiight make this kinda resource intensive idk
         case 'SET_TILE_TO_MINE':
             return [
-                ...state.slice(0, action.x),
+                ...state.slice(0, action.y),
                 [
-                    ...state[action.x].slice(0, action.y),
+                    ...state[action.y].slice(0, action.x),
                     {
-
+                        revealed: false,
+                        flagged: false,
+                        questioned: false,
+                        val: 9,
                     },
-                    ...state[action.x].slice(action.y + 1)
+                    ...state[action.y].slice(action.x + 1)
                 ],
-                ...state.slice( action.x + 1)
-
+                ...state.slice( action.y + 1)
             ];
         case 'SET_BOARD_SIZE':
-            return matrix(action.height, action.width, {})
+            return matrix(action.height, action.width, tileInit)
         default:
             return state;
     }
@@ -73,7 +81,7 @@ const board = ( state = matrix(16, 30, {}) , action) => { // default is just an 
 //const timer
 
 
-//...
+//
 
 //gonna need a fuck ton of shit for the options
 

@@ -23,8 +23,6 @@ class Board extends Component {
                                 y={i}
                                 key={j}
                             />
-                            //<div className="tile" id={ "" + i + "_" + j} key={j}/>
-
                         )
                     }
                     </div>

@@ -2,7 +2,7 @@
 
 //actions for game initialization logic
 
-export const initBoard = (minesCounter, seed, x_init, y_init) => {
+export const populateBoard = (minesCounter, seed, x_init, y_init) => {
     // TODO; get minesCounter, 
     // and seed from the settings the same way that 
     // I get the board info from the settings.
@@ -12,22 +12,27 @@ export const initBoard = (minesCounter, seed, x_init, y_init) => {
         // boards with the same seed will be sufficently different.
 
         
-        let a = 134775813;
-        let c = 1;
-        let modulus = Math.pow(2 , 32);
+        //let a = 134775813;
+        //let c = 1;
+        //let modulus = Math.pow(2 , 32);
 
         let board = getState().board;
+        console.log(board);
+        console.log(board[0][0]);
         let height = getState().board.length;
         let width = getState().board[0].length;
     
         while(minesCounter > 0){
+            //http://davidbau.com/archives/2010/01/30/random_seeds_coded_hints_and_quintillions.html#more
+            //https://www.npmjs.com/package/seedrandom
+            console.log("mines left to place: " + minesCounter);
             //linear congruential generator
-            seed = ( a * seed + c ) % modulus; // step lcg
+            //seed = ( a * seed + c ) % modulus; // step lcg
 
-            let rng = seed % ( height * width - 1); // why?
 
-            let x = rng * 3 + 2  % width;
-            let y = rng * 5 + 6  % height;
+            let x = Math.floor(Math.random() * width );
+            let y = Math.floor(Math.random() * height );
+            //console.log("generated target: x: " + x + ", y: " + y + "\n\n");
 
 
             // I think there may be a way to only generate coordinates not neighboring the first click
@@ -47,7 +52,7 @@ export const initBoard = (minesCounter, seed, x_init, y_init) => {
             if( x === x_init - 1 && y === y_init - 1 ) continue; // check south west
             
             //check if the board already has a mine at x,y
-            if(board[x][y].val === 9) continue;
+            if(board[y][x].val === 9) continue;
             
             dispatch(setMine(x,y));
             minesCounter--;
@@ -81,6 +86,7 @@ export const generateClick = ( x, y ) => {
         switch(getState().game_state){// 0: pre-game-idle, 1: in-progress, 2: post-game-idle, 3: replay 
             case 0:
                 // populate board
+                dispatch(populateBoard(99, 2, x, y)); //oh boy
                 // change game state
                 // manipulate board
                 // save to replay

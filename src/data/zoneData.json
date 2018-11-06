@@ -1,6 +1,0 @@
-{
-    "revealed": false,
-    "flagged": false,
-    "questioned": false,
-    "val": 0 // # of mines surrounding tiles. 9 means a bomb
-}
