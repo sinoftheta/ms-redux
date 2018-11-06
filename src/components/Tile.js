@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 // REDUX //
 import { connect } from 'react-redux';
-//import { } from '../redux/actions';
+import { generateClick } from '../actions/boardActions';
 
 class Tile extends Component {
 
@@ -15,8 +15,13 @@ class Tile extends Component {
 
         
         return (
+            //onClick = () => this.props.generateClick(this.props.x, this.props.y)
             <div className="tile" id={ "" + this.props.x + "-" + this.props.y}
-            onClick={/* dispatch generate click */}>
+            onClick={( x , y ) => this.props.generateClick( x , y)}
+            >
+            
+            
+            
                 {/* graphics, if needed */}
             </div>
         );
@@ -27,7 +32,7 @@ class Tile extends Component {
 // REDUX MAPS
 const mapStateToProps = (state) => {
     return {
-
+        board: state.board,
     };
   };
   
@@ -37,4 +42,4 @@ const mapStateToProps = (state) => {
     };
   };
   
-  export default connect(mapStateToProps, mapDispatchToProps)(tile);
+  export default connect(mapStateToProps, mapDispatchToProps)(Tile);

@@ -2,7 +2,7 @@
 
 //actions for game initialization logic
 
-export const placeMines = (minesCounter, seed, x_init, y_init) => {
+export const initBoard = (minesCounter, seed, x_init, y_init) => {
     // TODO; get minesCounter, 
     // and seed from the settings the same way that 
     // I get the board info from the settings.
@@ -36,15 +36,15 @@ export const placeMines = (minesCounter, seed, x_init, y_init) => {
             // check if x and y are/are neighboring (x_init, y_init). if they are, 
             // skip current x, y and generate a new x, y. This is to guarantee the first click is safe and is a 0
             //this block has about a 9 in boardArea chance of making the loop continue
-            if( x == x_init && y == y_init     ) continue; //check first click for mine
-            if( x == x_init && y == y_init + 1 ) continue; // check north of first click for mine
-            if( x == x_init + 1 && y == y_init ) continue; // check east 
-            if( x == x_init && y == y_init - 1 ) continue; // check south
-            if( x == x_init - 1 && y == y_init ) continue; // check west
-            if( x == x_init - 1 && y == y_init + 1 ) continue; // check north west
-            if( x == x_init - 1 && y == y_init - 1 ) continue; // check south west
-            if( x == x_init + 1 && y == y_init + 1 ) continue; // check north east
-            if( x == x_init + 1 && y == y_init - 1 ) continue; // check south east
+            if( x === x_init && y === y_init         ) continue; //check first click for mine
+            if( x === x_init && y === y_init + 1     ) continue; // check north of first click for mine
+            if( x === x_init && y === y_init - 1     ) continue; // check south
+            if( x === x_init + 1 && y === y_init     ) continue; // check east 
+            if( x === x_init - 1 && y === y_init     ) continue; // check west
+            if( x === x_init + 1 && y === y_init + 1 ) continue; // check north east
+            if( x === x_init + 1 && y === y_init - 1 ) continue; // check south east
+            if( x === x_init - 1 && y === y_init + 1 ) continue; // check north west
+            if( x === x_init - 1 && y === y_init - 1 ) continue; // check south west
             
             //check if the board already has a mine at x,y
             if(board[x][y].val === 9) continue;
@@ -66,4 +66,33 @@ export const setMine = ( x, y ) => {
 
     }
 
+}
+
+
+
+// GENERATE CLICK
+
+export const generateClick = ( x, y ) => {
+    return(dispatch, getState) => {
+
+        console.log("click generated at [ " + x + " , " + y + "]");
+
+        //check game state
+        switch(getState().game_state){// 0: pre-game-idle, 1: in-progress, 2: post-game-idle, 3: replay 
+            case 0:
+                // populate board
+                // change game state
+                // manipulate board
+                // save to replay
+                break;
+            case 1:
+                // manipulate board
+                // save to replay
+                break;
+            default:
+                // do nothing
+        }
+
+        
+    }
 }
