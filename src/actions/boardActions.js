@@ -1,10 +1,10 @@
-//https://code.tutsplus.com/tutorials/build-a-minesweeper-game-within-200-lines-of-code--active-8578
+
 
 //actions for game initialization logic
 
-export const populateBoard = (minesCounter, seed, x_init, y_init) => {
-    // TODO; get minesCounter, 
-    // and seed from the settings the same way that 
+export const populateBoard = (x_init, y_init) => {
+    // TODO; get minesCounter, and seed
+    // from the settings the same way that 
     // I get the board info from the settings.
     return(dispatch, getState) => {
 
@@ -16,27 +16,33 @@ export const populateBoard = (minesCounter, seed, x_init, y_init) => {
         //let c = 1;
         //let modulus = Math.pow(2 , 32);
 
-        let board = getState().board;
-        console.log(board);
-        console.log(board[0][0]);
+        //console.log(board);
+        //console.log(board[0][0]);
+
+
+        //check in the settings that (height * width - 9 < minesToPlace)
+        let minesToPlace = 420;
+        console.log("# of mines to place: " + minesToPlace);
         let height = getState().board.length;
         let width = getState().board[0].length;
+        let minesPlaced = 0;
+
+        let x, y;
+        let repeatCounter = 0;
+
+        let timeBefore = (new Date()).getTime();
     
-        while(minesCounter > 0){
+        while(minesPlaced < minesToPlace){
             //http://davidbau.com/archives/2010/01/30/random_seeds_coded_hints_and_quintillions.html#more
             //https://www.npmjs.com/package/seedrandom
-            console.log("mines left to place: " + minesCounter);
+            
             //linear congruential generator
             //seed = ( a * seed + c ) % modulus; // step lcg
 
 
-            let x = Math.floor(Math.random() * width );
-            let y = Math.floor(Math.random() * height );
-            //console.log("generated target: x: " + x + ", y: " + y + "\n\n");
-
-
-            // I think there may be a way to only generate coordinates not neighboring the first click
-            // this method is a brute force check 
+            x = Math.floor(Math.random() * width );
+            y = Math.floor(Math.random() * height );
+            //console.log("attempting to place a mine at [ " + x + " , " + y + " ]...");
 
             // check if x and y are/are neighboring (x_init, y_init). if they are, 
             // skip current x, y and generate a new x, y. This is to guarantee the first click is safe and is a 0
@@ -52,14 +58,43 @@ export const populateBoard = (minesCounter, seed, x_init, y_init) => {
             if( x === x_init - 1 && y === y_init - 1 ) continue; // check south west
             
             //check if the board already has a mine at x,y
-            if(board[y][x].val === 9) continue;
-            
+            if(getState().board[y][x].val === 9){
+                repeatCounter++;
+                continue; // OH MY FUCKING GOD I WASNT COMPARING AGAINST AN UPDATED VERSION OF THE BOARD
+            }
+
             dispatch(setMine(x,y));
-            minesCounter--;
+            //console.log("placed a mine at [ " + x + " , " + y + " ]");
+            minesPlaced++;
+            //console.log("mines placed so far: " + minesPlaced);
+        }
+        let timeAfter = (new Date()).getTime();
+        // do the next thing, which would be placeNumbers
+        console.log("all mines placed!");
+        console.log("repeats: " + repeatCounter);
+        
+
+        console.log("mine placement took: " + (timeAfter - timeBefore) + " ms");
+
+
+        /************* test block for previous block ***************/
+        
+        let board = getState().board;
+        let countedMines = 0;
+        for(let i = 0; i < board.length; i++){
+            for(let j = 0; j < board[0].length; j++){
+                if(board[i][j].val === 9){
+                    countedMines++;
+                }
+            }
         }
 
-        // do the next thing, which would be placeNumbers
-        console.log("mines placed!");
+        console.log("counted mines: " + countedMines)
+        
+
+
+
+
     }
 }
 
@@ -86,7 +121,7 @@ export const generateClick = ( x, y ) => {
         switch(getState().game_state){// 0: pre-game-idle, 1: in-progress, 2: post-game-idle, 3: replay 
             case 0:
                 // populate board
-                dispatch(populateBoard(99, 2, x, y)); //oh boy
+                dispatch(populateBoard(x, y)); //oh boy
                 // change game state
                 // manipulate board
                 // save to replay

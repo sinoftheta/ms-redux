@@ -14,19 +14,13 @@ class Board extends Component {
         // map the visible board
         //console.log(this.props.board);
         let board = this.props.board.map((row, i) =>
-            
                 <div id={"row-" + i} className="row" key={i}>
                     {
                         row.map((tile, j) =>
-                            <Tile
-                                x={j}
-                                y={i}
-                                key={j}
-                            />
+                            <Tile x={j} y={i} key={j}/>
                         )
                     }
                     </div>
-            
         );
         return (
             <div id="gameboard">

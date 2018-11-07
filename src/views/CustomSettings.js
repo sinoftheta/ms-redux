@@ -30,6 +30,13 @@ class GenSettings extends Component {
         //"just fill my screen" option
 
         //mine density slider + field
+
+        //number of mines option
+
+
+        // check that (height * width - 9 >= minesToPlace) 
+        // and/or 
+        // (height * width - 9 >= height * width * density)
     return (
         <div id="custom-settings-menu" className={"menu " + focusedMenu}>
           <h1 className="menu-title">Custom Settings</h1>
