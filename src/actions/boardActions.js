@@ -10,15 +10,21 @@ export const placeMines = (x_init, y_init) => {
     return(dispatch, getState) => {
 
         // need to get all these from the store
-        let minesToPlace = 150; 
+        let minesToPlace = 300; 
         let salt  = "contra";
         let height = getState().board.length;
         let width = getState().board[0].length;
 
+        //check for too many mines
+        if(height * width - 9 < minesToPlace){
+            return;
+        }
+
         var rng = seedrandom("" + x_init + y_init + minesToPlace + height + width + salt);
 
         let x, y;
-        //let repeatCounter = 0;
+        let repeatCounter = 0;
+        
 
         // place mines
         while(minesToPlace > 0){
@@ -42,9 +48,14 @@ export const placeMines = (x_init, y_init) => {
             
             //check if the board already has a mine at x,y
             if(getState().board[y][x].val === 9){
-                // repeatCounter++;
+                repeatCounter++;
+                if(repeatCounter >= minesToPlace){//this is just a safeguard for testing pretty much, wont be needed later.
+                    //? not sure...
+                    return;
+                }
                 continue; // OH MY FUCKING GOD I WASNT COMPARING AGAINST AN UPDATED VERSION OF THE BOARD
             }
+
 
             dispatch(setTileValue(x,y));
             
@@ -91,19 +102,29 @@ export const placeNumbers = () => {
             for(let j = 0; j < board[0].length; j++){
 
                 // if tile is already a mine, skip it.
-                /*if(board[i][j].val === bomb ){ this if statement avoids instantiating adjMines for the mines, may improve preformance
+                if(board[i][j].val === 9 ){// this if statement avoids instantiating adjMines for the mines, may improve preformance
                     continue;
-                }*/
-                let adjMines = 0;
-                switch(board[i][j].val){
-                    default:
-                        return;
-                    case north:{
-                        
-                    }
-                    
-
                 }
+                let adjMines = 0;
+                //check west neighbor
+                if(board[i][j] !== undefined){
+                    if(board[ i - 1 ][j] === 9){
+                        adjMines++;
+                    }
+                }
+                //check northwest
+
+                // check north
+
+                // check northeast
+
+                // check east
+
+                //check southeast
+
+                //check south
+
+                //check southwest
         
                 dispatch(setTileValue(j,i,adjMines));
             }
