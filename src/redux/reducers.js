@@ -4,6 +4,8 @@ import { west, northWest, north, northEast, east, southEast, south, southWest, m
 
 //this file contains the reducers for general purpose variables, including the main board memory
 
+
+//define all action types as integers to make the switch statements faster
 const matrix = (cols,rows, defaultValue) => {
     var arr = [];
   
@@ -66,7 +68,7 @@ const tileInit = {
         flagged: false,
         questioned: false,
         val: 0, // # of mines surrounding tiles. 9 means a bomb
-        place: null, 
+        border: null, 
 }
 
 const current_menu = (state = 0, action) => { // 0 means no menu, each menu has a corresponding id
@@ -88,7 +90,7 @@ const game_state = (state = 0, action) => { // 0: pre-game-idle, 1: in-progress,
 }
 
 
-const board = ( state = matrix( 50, 20, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
+const board = ( state = matrix( 16, 16, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     switch(action.type){
         //oh boy oh boy
 

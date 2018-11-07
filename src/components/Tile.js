@@ -20,13 +20,13 @@ class Tile extends Component {
             num = tile.val;
         }
 
-        //{num}
+        //
         return (
             //onClick = () => this.props.generateClick(this.props.x, this.props.y)
             <div className={"tile" + mined} id={ "" + this.props.x + "-" + this.props.y}
             onClick={( x , y ) => this.props.generateClick( this.props.x , this.props.y)}
             >
-            
+                {num}
                 
                 {/*tile.place*/}
             

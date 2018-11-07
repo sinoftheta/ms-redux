@@ -1,6 +1,10 @@
 import seedrandom from 'seedrandom'; //https://www.npmjs.com/package/seedrandom
+import {
+    west, northWest, north, northEast, east, southEast, south, southWest, middle,
+    mine,
+    } from '../data/definitions'
 
-import { west, northWest, north, northEast, east, southEast, south, southWest, middle } from '../data/definitions'
+
 
 
 export const placeMines = (x_init, y_init) => {
@@ -10,7 +14,7 @@ export const placeMines = (x_init, y_init) => {
     return(dispatch, getState) => {
 
         // need to get all these from the store
-        let minesToPlace = 300; 
+        let minesToPlace = 150; 
         let salt  = "contra";
         let height = getState().board.length;
         let width = getState().board[0].length;
@@ -47,7 +51,7 @@ export const placeMines = (x_init, y_init) => {
             if( x === x_init - 1 && y === y_init - 1 ) continue; // check south west
             
             //check if the board already has a mine at x,y
-            if(getState().board[y][x].val === 9){
+            if(getState().board[y][x].val === mine){
                 repeatCounter++;
                 if(repeatCounter >= minesToPlace){//this is just a safeguard for testing pretty much, wont be needed later.
                     //? not sure...
@@ -76,7 +80,7 @@ export const placeMines = (x_init, y_init) => {
         let countedMines = 0;
         for(let i = 0; i < board.length; i++){
             for(let j = 0; j < board[0].length; j++){
-                if(board[i][j].val === 9){
+                if(board[i][j].val === mine){
                     countedMines++;
                 }
             }
@@ -86,7 +90,7 @@ export const placeMines = (x_init, y_init) => {
     }
 }
 
-export const setTileValue = ( x, y, val = 9 ) => {
+export const setTileValue = ( x, y, val = mine ) => {
     return{
         type: 'SET_TILE_VALUE',
         x: x,
@@ -94,6 +98,7 @@ export const setTileValue = ( x, y, val = 9 ) => {
         val: val,
     }
 }
+
 export const placeNumbers = () => {
     return(dispatch, getState) => {
         // place numbers
@@ -102,34 +107,82 @@ export const placeNumbers = () => {
             for(let j = 0; j < board[0].length; j++){
 
                 // if tile is already a mine, skip it.
-                if(board[i][j].val === 9 ){// this if statement avoids instantiating adjMines for the mines, may improve preformance
+                if(board[i][j].val === mine ){// this if statement avoids instantiating adjMines for the mines, may improve preformance
                     continue;
                 }
                 let adjMines = 0;
-                //check west neighbor
-                if(board[i][j] !== undefined){
-                    if(board[ i - 1 ][j] === 9){
-                        adjMines++;
-                    }
+
+                switch(board[i][j].place){ //could I use a generator function or array or something to automate this?
+                    case middle: 
+                        if(board[i][j + 1].val === mine) adjMines++; //check east
+                        if(board[i + 1][j + 1].val === mine) adjMines++;//check southeast
+                        if(board[i + 1][j].val === mine) adjMines++; //check south
+                        if(board[i + 1][j - 1].val === mine) adjMines++; //check southwest
+                        if(board[i][j - 1].val === mine) adjMines++//check west
+                        if(board[i - 1][j - 1].val === mine) adjMines++;//check northwest
+                        if(board[i - 1][j].val === mine) adjMines++; //check north
+                        if(board[i - 1 ][j + 1].val === mine) adjMines++ //check northeast
+                        break;
+                    case north:
+                        if(board[i][j + 1].val === mine) adjMines++; //check east
+                        if(board[i + 1][j + 1].val === mine) adjMines++;//check southeast
+                        if(board[i + 1][j].val === mine) adjMines++; //check south
+                        if(board[i + 1][j - 1].val === mine) adjMines++; //check southwest
+                        if(board[i][j - 1].val === mine) adjMines++//check west
+                        break;
+                    case northEast: 
+                        if(board[i + 1][j].val === mine) adjMines++; //check south
+                        if(board[i + 1][j - 1].val === mine) adjMines++; //check southwest
+                        if(board[i][j - 1].val === mine) adjMines++//check west
+                        break;
+                    case east: 
+                        if(board[i + 1][j].val === mine) adjMines++; //check south
+                        if(board[i + 1][j - 1].val === mine) adjMines++; //check southwest
+                        if(board[i][j - 1].val === mine) adjMines++//check west
+                        if(board[i - 1][j - 1].val === mine) adjMines++;//check northwest
+                        if(board[i - 1][j].val === mine) adjMines++; //check north
+                        break;
+                    case southEast: 
+                        if(board[i][j - 1].val === mine) adjMines++//check west
+                        if(board[i - 1][j - 1].val === mine) adjMines++;//check northwest
+                        if(board[i - 1][j].val === mine) adjMines++; //check north
+                        break;
+                    case south: 
+                        if(board[i][j + 1].val === mine) adjMines++; //check east
+                        if(board[i][j - 1].val === mine) adjMines++//check west
+                        if(board[i - 1][j - 1].val === mine) adjMines++;//check northwest
+                        if(board[i - 1][j].val === mine) adjMines++; //check north
+                        if(board[i - 1 ][j + 1].val === mine) adjMines++ //check northeast
+                        break;
+                    case southWest: 
+                        if(board[i][j + 1].val === mine) adjMines++; //check east
+                        if(board[i - 1][j].val === mine) adjMines++; //check north
+                        if(board[i - 1 ][j + 1].val === mine) adjMines++ //check northeast
+                        break;
+                    case west: 
+                        if(board[i][j + 1].val === mine) adjMines++; //check east
+                        if(board[i + 1][j + 1].val === mine) adjMines++;//check southeast
+                        if(board[i + 1][j].val === mine) adjMines++; //check south
+                        if(board[i - 1][j].val === mine) adjMines++; //check north
+                        if(board[i - 1 ][j + 1].val === mine) adjMines++ //check northeast
+                        break;
+                    case northWest: 
+                        if(board[i][j + 1].val === mine) adjMines++; //check east
+                        if(board[i + 1][j + 1].val === mine) adjMines++;//check southeast
+                        if(board[i + 1][j].val === mine) adjMines++; //check south
+                        break;
+                    default:
+                        break;
                 }
-                //check northwest
-
-                // check north
-
-                // check northeast
-
-                // check east
-
-                //check southeast
-
-                //check south
-
-                //check southwest
-        
                 dispatch(setTileValue(j,i,adjMines));
             }
         }
     }
+}
+export const uncoverNeighbors = ( x , y ) => {
+    //when revealing a tile, increment an "tilesRevealed" counter
+    //when tilesRevealed = boardArea - #ofMinesOnBoard, the game is won
+
 }
 
 
@@ -148,13 +201,13 @@ export const generateClick = ( x, y ) => {
             case 0:
                 // populate board
                 dispatch(placeMines(x, y));
-                //dispatch(placeNumbers());
+                dispatch(placeNumbers());
                 // change game state
-                // manipulate board
+                // uncover board
                 // save to replay
                 break;
             case 1:
-                // manipulate board
+                // uncover board
                 // save to replay
                 break;
             default:
