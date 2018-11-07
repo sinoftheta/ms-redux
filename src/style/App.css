@@ -75,9 +75,15 @@
 .tile{
   height: 20px;
   width: 20px;
-  background: #444444;
-  margin: 1px 1px 1px 1px;
+  background: #cccccc;
+  border-style: solid;
+  border-width: 0.05px;
+  border-color: #aaaaaa;
+
+  text-align: center;
+  color: #3e3e3e;
+
 }
 .mined{
-  background: #ff0000;
+  background: #ff3300;
 }

@@ -7,27 +7,28 @@ import { generateClick } from '../actions/boardActions';
 
 class Tile extends Component {
 
-    render() {
+    render() { // tile numbers and graphics will need to be easily rotateable
+        let tile = this.props.board[this.props.y][this.props.x];
 
         let mined = "";
-        // tiles are always able to report their clicks
-        //the engine will determine what to do with the click depending on the game_state
-        //i.e. if its the first click of a game, or to ignore it...
-        let tile = this.props.board[this.props.y][this.props.x];
+        let num;
 
         if(tile.val === 9){
             mined = " mined";
         }
-        //console.log(tile);
+        else if(tile.val > 0 ){
+            num = tile.val;
+        }
 
-        
+        //{num}
         return (
             //onClick = () => this.props.generateClick(this.props.x, this.props.y)
             <div className={"tile" + mined} id={ "" + this.props.x + "-" + this.props.y}
             onClick={( x , y ) => this.props.generateClick( this.props.x , this.props.y)}
             >
             
-            
+                
+                {/*tile.place*/}
             
                 {/* graphics, if needed */}
             </div>

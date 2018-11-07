@@ -1,47 +1,30 @@
+import seedrandom from 'seedrandom'; //https://www.npmjs.com/package/seedrandom
+
+import { west, northWest, north, northEast, east, southEast, south, southWest, middle } from '../data/definitions'
 
 
-//actions for game initialization logic
-
-export const populateBoard = (x_init, y_init) => {
+export const placeMines = (x_init, y_init) => {
     // TODO; get minesCounter, and seed
     // from the settings the same way that 
     // I get the board info from the settings.
     return(dispatch, getState) => {
 
-        // need to to salt the seed with x_init, y_init, and board dimensions. this will make it so similar sized
-        // boards with the same seed will be sufficently different.
-
-        
-        //let a = 134775813;
-        //let c = 1;
-        //let modulus = Math.pow(2 , 32);
-
-        //console.log(board);
-        //console.log(board[0][0]);
-
-
-        //check in the settings that (height * width - 9 < minesToPlace)
-        let minesToPlace = 420;
-        console.log("# of mines to place: " + minesToPlace);
+        // need to get all these from the store
+        let minesToPlace = 150; 
+        let salt  = "contra";
         let height = getState().board.length;
         let width = getState().board[0].length;
-        let minesPlaced = 0;
+
+        var rng = seedrandom("" + x_init + y_init + minesToPlace + height + width + salt);
 
         let x, y;
-        let repeatCounter = 0;
+        //let repeatCounter = 0;
 
-        let timeBefore = (new Date()).getTime();
-    
-        while(minesPlaced < minesToPlace){
-            //http://davidbau.com/archives/2010/01/30/random_seeds_coded_hints_and_quintillions.html#more
-            //https://www.npmjs.com/package/seedrandom
-            
-            //linear congruential generator
-            //seed = ( a * seed + c ) % modulus; // step lcg
+        // place mines
+        while(minesToPlace > 0){
 
-
-            x = Math.floor(Math.random() * width );
-            y = Math.floor(Math.random() * height );
+            x = Math.floor(rng() * width );
+            y = Math.floor(rng() * height );
             //console.log("attempting to place a mine at [ " + x + " , " + y + " ]...");
 
             // check if x and y are/are neighboring (x_init, y_init). if they are, 
@@ -59,25 +42,24 @@ export const populateBoard = (x_init, y_init) => {
             
             //check if the board already has a mine at x,y
             if(getState().board[y][x].val === 9){
-                repeatCounter++;
+                // repeatCounter++;
                 continue; // OH MY FUCKING GOD I WASNT COMPARING AGAINST AN UPDATED VERSION OF THE BOARD
             }
 
-            dispatch(setMine(x,y));
-            //console.log("placed a mine at [ " + x + " , " + y + " ]");
-            minesPlaced++;
-            //console.log("mines placed so far: " + minesPlaced);
+            dispatch(setTileValue(x,y));
+            
+            minesToPlace--;
         }
-        let timeAfter = (new Date()).getTime();
+        //let timeAfter = (new Date()).getTime();
         // do the next thing, which would be placeNumbers
-        console.log("all mines placed!");
-        console.log("repeats: " + repeatCounter);
+        //console.log("all mines placed!");
+        //console.log("repeats: " + repeatCounter);
         
 
-        console.log("mine placement took: " + (timeAfter - timeBefore) + " ms");
+        //console.log("mine placement took: " + (timeAfter - timeBefore) + " ms");
 
 
-        /************* test block for previous block ***************/
+        /************* test block for previous block ***************
         
         let board = getState().board;
         let countedMines = 0;
@@ -87,32 +69,55 @@ export const populateBoard = (x_init, y_init) => {
                     countedMines++;
                 }
             }
-        }
-
-        console.log("counted mines: " + countedMines)
-        
-
-
-
+        } // */
+        //console.log("counted mines: " + countedMines);
 
     }
 }
 
-export const setMine = ( x, y ) => {
+export const setTileValue = ( x, y, val = 9 ) => {
     return{
-        type: 'SET_TILE_TO_MINE',
+        type: 'SET_TILE_VALUE',
         x: x,
         y: y,
-
+        val: val,
     }
-
 }
+export const placeNumbers = () => {
+    return(dispatch, getState) => {
+        // place numbers
+        let board = getState().board;
+        for(let i = 0; i < board.length; i++){
+            for(let j = 0; j < board[0].length; j++){
 
+                // if tile is already a mine, skip it.
+                /*if(board[i][j].val === bomb ){ this if statement avoids instantiating adjMines for the mines, may improve preformance
+                    continue;
+                }*/
+                let adjMines = 0;
+                switch(board[i][j].val){
+                    default:
+                        return;
+                    case north:{
+                        
+                    }
+                    
+
+                }
+        
+                dispatch(setTileValue(j,i,adjMines));
+            }
+        }
+    }
+}
 
 
 // GENERATE CLICK
 
 export const generateClick = ( x, y ) => {
+        // tiles are always able to report their clicks
+        //the engine will determine what to do with the click depending on the game_state
+        //i.e. if its the first click of a game, or to ignore it...
     return(dispatch, getState) => {
 
         console.log("click generated at [ " + x + " , " + y + "]");
@@ -121,7 +126,8 @@ export const generateClick = ( x, y ) => {
         switch(getState().game_state){// 0: pre-game-idle, 1: in-progress, 2: post-game-idle, 3: replay 
             case 0:
                 // populate board
-                dispatch(populateBoard(x, y)); //oh boy
+                dispatch(placeMines(x, y));
+                //dispatch(placeNumbers());
                 // change game state
                 // manipulate board
                 // save to replay

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
+import { west, northWest, north, northEast, east, southEast, south, southWest, middle } from '../data/definitions'
 //a store variable should be given its own file if it will be mutated by a lot of actions...
 
 //this file contains the reducers for general purpose variables, including the main board memory
 
-const matrix = ( rows, cols, defaultValue) => {
-
+const matrix = (cols,rows, defaultValue) => {
     var arr = [];
   
     // Creates all lines:
@@ -16,9 +16,46 @@ const matrix = ( rows, cols, defaultValue) => {
         // Adds cols to the empty line:
         arr[i].push( new Array(cols));
   
-        for(var j=0; j < cols; j++){
-          // Initializes:
-          arr[i][j] = defaultValue;
+        for(var j=0; j < cols; j++){ // ITS A SCOPE/COPY ISSUE, 
+            // Initializes:
+            arr[i][j] = {
+                revealed: false,
+                flagged: false,
+                questioned: false,
+                val: 0, // # of mines surrounding tiles. 9 means a bomb
+                place: null, 
+            }
+            
+
+            if(i === 0 && j === 0){
+                arr[i][j].place = northWest;
+            }
+            else if( i === 0 && j === cols - 1){
+                arr[i][j].place = northEast;
+            }
+            else if( i === rows - 1 && j === 0){
+                arr[i][j].place = southWest;
+            }
+            else if( i === rows - 1 && j === cols - 1){
+                //console.log("fire");
+                arr[i][j].place = southEast;
+            }
+            else if( i === 0 ){
+                arr[i][j].place = north;
+            }
+            else if( i === rows - 1){
+                arr[i][j].place = south;
+            }
+            else if( j === 0 ){
+                arr[i][j].place = west;
+            }
+            else if( j === cols - 1){
+                arr[i][j].place = east;
+            }
+            else{
+                arr[i][j].place = middle;
+            }
+            //console.log(arr[i][j].place);
         }
     }
   
@@ -28,7 +65,8 @@ const tileInit = {
         revealed: false,
         flagged: false,
         questioned: false,
-        val: 0 // # of mines surrounding tiles. 9 means a bomb
+        val: 0, // # of mines surrounding tiles. 9 means a bomb
+        place: null, 
 }
 
 const current_menu = (state = 0, action) => { // 0 means no menu, each menu has a corresponding id
@@ -50,12 +88,12 @@ const game_state = (state = 0, action) => { // 0: pre-game-idle, 1: in-progress,
 }
 
 
-const board = ( state = matrix(16, 30, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
+const board = ( state = matrix( 50, 20, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     switch(action.type){
         //oh boy oh boy
 
         // redux miiiiight make this kinda resource intensive idk
-        case 'SET_TILE_TO_MINE':
+        case 'SET_TILE_VALUE':
             return [
                 ...state.slice(0, action.y),
                 [
@@ -64,7 +102,7 @@ const board = ( state = matrix(16, 30, tileInit) , action) => { // default is ju
                         revealed: false,
                         flagged: false,
                         questioned: false,
-                        val: 9,
+                        val: action.val,
                     },
                     ...state[action.y].slice(action.x + 1)
                 ],
