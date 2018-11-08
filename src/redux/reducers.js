@@ -81,7 +81,7 @@ const tileInit = {
         flagged: false,
         questioned: false,
         val: 0, // # of mines surrounding tiles. 9 means a bomb
-        border: null, 
+        place: null, 
 }
 
 // STATES
@@ -114,6 +114,7 @@ const mouse_state = (state = up, action) => {
 const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     switch(action.type){
         // spread operators and slice() miiiiight make this kinda resource intensive idk
+        case 'SET_FLAG':
         case 'SET_TILE_VALUE':
             return [
                 ...state.slice(0, action.y),
@@ -124,6 +125,7 @@ const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is j
                         flagged: false,
                         questioned: false,
                         val: action.val,
+                        border: state[action.y][action.x].place,
                     },
                     ...state[action.y].slice(action.x + 1)
                 ],

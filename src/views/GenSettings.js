@@ -8,6 +8,21 @@ import { connect } from 'react-redux';
 // COMPONENTS //
 import MenuToggleButton from '../components/MenuToggleButton';
 
+
+/* other ideas for settings:
+*
+*	-auto restart upon loss, gives no warnig or popup asking to play again or save replay. replays would still be saved, but overwritten at some point without warning... may tie into a "keep em comin" acheivement
+*	
+*
+*
+*
+*
+*
+*
+*
+*/
+
+	
 class GenSettings extends Component {
 	//mounts when app loads, pans in from the side when its button is pressed
 

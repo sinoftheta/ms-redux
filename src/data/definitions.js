@@ -12,6 +12,11 @@ export const south = 6;
 export const southWest = 7; 
 export const middle = 8;
 
+//FLAG STATES//
+export const unflagged = 0;
+export const flagged = 1;
+export const questioned = 2;
+
 
 // TILE VALUES //
 export const mine = 9;
