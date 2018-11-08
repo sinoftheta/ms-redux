@@ -186,11 +186,18 @@ export const placeNumbers = () => {
         }
     }
 }
-export const openNeighbors = ( x , y ) => {
-    //when revealing a tile, increment an "tilesRevealed" counter
-    //when tilesRevealed = boardArea - #ofMinesOnBoard, the game is won
+export const revealTile = ( x , y ) => {
 
-    //open any neighbors that have a value of zero
+    //reveal self
+
+    //check win condition
+        //when revealing a tile, increment an "tilesRevealed" counter
+        //when tilesRevealed = boardArea - #ofMinesOnBoard, the game is won
+
+    //if self has a value of zero
+        //list through all neighbors, call revealTile for each neighbor that is unflagged and has a zero value
+
+
 
 }
 

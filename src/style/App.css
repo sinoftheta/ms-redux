@@ -77,8 +77,6 @@
 
 
 /****** TILES ********/
-
-/* STYLES FURTHER IN THE CSS FILE HAVE PRIORITY, NEED TO USE THIS FOR TILE CLICK AND DRAGGING*/
 .tile{
   height: 30px;
   width: 30px;
@@ -89,7 +87,6 @@
   border-color: #361e3b3d;
 
   text-align: center;
-  vertical-align: middle;
 
   font-family: 'Bungee';
   font-size: 17px;
@@ -99,6 +96,7 @@
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
 
+  position: relative;
 }
 
 .tile-not-revealed{
@@ -107,6 +105,8 @@
 .tile-revealed{
   background: #dfdbb9;
 }
+
+/* this "adding classes only to use their hover" thing works, but maybe try aphrodite*/
 .mouse-pressed:hover{
   background: #dfdbb9;
 }
@@ -137,5 +137,9 @@
 }
 .tile-val-8{
   color: #464646
+}
+.num-container{
+  position: absolute;
+  
 }
 

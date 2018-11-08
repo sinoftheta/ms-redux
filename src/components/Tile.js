@@ -119,7 +119,9 @@ class Tile extends Component {
             //onContextMenu="return false;"
             
             >
-                {val}
+                <div className="num-container">
+                    {val}
+                </div>
             </div>
         );
     }
