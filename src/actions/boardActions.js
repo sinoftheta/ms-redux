@@ -28,7 +28,7 @@ export const placeMines = (x_init, y_init) => {
     return(dispatch, getState) => {
 
         // need to get all these from the store
-        let minesToPlace = 150; 
+        let minesToPlace = 99; 
         let salt  = "contra";
         let height = getState().board.length;
         let width = getState().board[0].length;

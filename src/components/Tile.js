@@ -27,9 +27,15 @@ class Tile extends Component {
     render() { // tile numbers and graphics will need to be easily rotateable
         //let tile = this.props.board[this.props.y][this.props.x];
 
+        let tile = this.props.tile_data;
         let hoverClickClass = "";
         let tileStateClass = "";
-        let valueClass = "";
+        let valueClass = " tile-val-" + tile.val;
+        let val;
+        if( tile.val < mine && !tile.revealed){
+            tile.val !== 0? val = tile.val: val = null;
+            tileStateClass = " tile-revealed";
+        }
         //tile rendering behavior
 
         /*
@@ -49,15 +55,9 @@ class Tile extends Component {
         */ 
        //honestly just not gonna worry about the post idle states rn
 
-        if(this.props.tile_data.revealed){ // may have to have this also depend on game state to quto reveal all tiles
-            tileStateClass = " tile-not-revealed";
-        }
-        else{
-            tileStateClass = " tile-revealed";
-            switch(this.props.tile_data.val)
-        }
 
-       
+        //look into using aphrodite to just dynamically change the hover class depending on the click state
+        //no need to add a class to every tile, that may be resource intensive idk
         if(this.props.mouse_state === up){ // holy shit this works, may have to have this depend on the revealed state as well
             hoverClickClass = " mouse-not-pressed";
         }
@@ -119,9 +119,7 @@ class Tile extends Component {
             //onContextMenu="return false;"
             
             >
-                {}
-                {}
-                {}
+                {val}
             </div>
         );
     }

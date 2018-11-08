@@ -89,7 +89,15 @@
   border-color: #361e3b3d;
 
   text-align: center;
-  color: #3e3e3e;
+  vertical-align: middle;
+
+  font-family: 'Bungee';
+  font-size: 17px;
+
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 
 }
 
@@ -100,7 +108,7 @@
   background: #dfdbb9;
 }
 .mouse-pressed:hover{
-  background: #c5c5c5;
+  background: #dfdbb9;
 }
 .mouse-not-pressed:hover{
   background: linear-gradient(135deg, #ffffff5b 0%,#ffffff27 100%);
@@ -119,15 +127,15 @@
   color: #02008f
 }
 .tile-val-5{
-  
+  color: #752b09
 }
 .tile-val-6{
-  
+  color: #32def5
 }
 .tile-val-7{
-  
+  color: #a311e7
 }
 .tile-val-8{
-  color: #444444
+  color: #464646
 }
 
