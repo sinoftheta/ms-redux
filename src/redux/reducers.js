@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
-import { west, northWest, north, northEast, east, southEast, south, southWest, middle } from '../data/definitions'
-//a store variable should be given its own file if it will be mutated by a lot of actions...
+import {
+    west, northWest, north, northEast, east, southEast, south, southWest, middle, //tile places
+    mine,
+    preGameIdle, gameInProgress, postGameIdle, playingReplay, postReplayIdle, //game states
+    } from '../data/definitions'
 
 //this file contains the reducers for general purpose variables, including the main board memory
 
@@ -79,10 +82,10 @@ const current_menu = (state = 0, action) => { // 0 means no menu, each menu has 
             return state;
     }
 }
-const game_state = (state = 0, action) => { // 0: pre-game-idle, 1: in-progress, 2: post-game-idle, 3: replay 
+const game_state = (state = preGameIdle, action) => {
     switch(action.type){
         case 'SET_GAME_STATE':
-            return action.value;
+            return action.id;
         // may have this respond to other actions as well like a reset button
         default:
             return state;
@@ -92,9 +95,7 @@ const game_state = (state = 0, action) => { // 0: pre-game-idle, 1: in-progress,
 
 const board = ( state = matrix( 16, 16, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     switch(action.type){
-        //oh boy oh boy
-
-        // redux miiiiight make this kinda resource intensive idk
+        // spread operators and slice() miiiiight make this kinda resource intensive idk
         case 'SET_TILE_VALUE':
             return [
                 ...state.slice(0, action.y),
@@ -116,18 +117,23 @@ const board = ( state = matrix( 16, 16, tileInit) , action) => { // default is j
             return state;
     }
 }
-//const replay
+const replay = (state = [], action) => {
+    switch(action.type){
+        case 'RECORD_MOVE':
+            return state.concat([action.move]);
+        case 'CLEAR_REPLAY':
+            return [];
+        default:
+            return state;
+    }
+}
 
 //const timer
 
 
-//
-
-//gonna need a fuck ton of shit for the options
-
 
 // COMBINE REDUCERS
-export default combineReducers({
+export default combineReducers({ //creates the root reducer, its imported and used by the store
 
     current_menu,
     game_state,

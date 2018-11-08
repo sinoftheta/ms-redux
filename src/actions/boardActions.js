@@ -1,10 +1,24 @@
 import seedrandom from 'seedrandom'; //https://www.npmjs.com/package/seedrandom
 import {
-    west, northWest, north, northEast, east, southEast, south, southWest, middle,
+    west, northWest, north, northEast, east, southEast, south, southWest, middle, //tile places
     mine,
+    preGameIdle, gameInProgress, postGameIdle, playingReplay, postReplayIdle, //game states
     } from '../data/definitions'
 
-
+export const setGameState = (id) => {
+    return{
+        type: 'SET_GAME_STATE',
+        id: id,
+    }
+}
+export const setTileValue = ( x, y, val = mine ) => {
+    return{
+        type: 'SET_TILE_VALUE',
+        x: x,
+        y: y,
+        val: val,
+    }
+}
 
 
 export const placeMines = (x_init, y_init) => {
@@ -90,14 +104,7 @@ export const placeMines = (x_init, y_init) => {
     }
 }
 
-export const setTileValue = ( x, y, val = mine ) => {
-    return{
-        type: 'SET_TILE_VALUE',
-        x: x,
-        y: y,
-        val: val,
-    }
-}
+
 
 export const placeNumbers = () => {
     return(dispatch, getState) => {
@@ -179,41 +186,73 @@ export const placeNumbers = () => {
         }
     }
 }
-export const uncoverNeighbors = ( x , y ) => {
+export const openNeighbors = ( x , y ) => {
     //when revealing a tile, increment an "tilesRevealed" counter
     //when tilesRevealed = boardArea - #ofMinesOnBoard, the game is won
+
+    //open any neighbors that have a value of zero
 
 }
 
 
-// GENERATE CLICK
+// BOARD CLICK BEHAVIOR
 
-export const generateClick = ( x, y ) => {
+export const rightClick = ( x, y ) => {
         // tiles are always able to report their clicks
         //the engine will determine what to do with the click depending on the game_state
         //i.e. if its the first click of a game, or to ignore it...
     return(dispatch, getState) => {
 
-        console.log("click generated at [ " + x + " , " + y + "]");
+        console.log("rightClick generated at [ " + x + " , " + y + "]");
 
         //check game state
-        switch(getState().game_state){// 0: pre-game-idle, 1: in-progress, 2: post-game-idle, 3: replay 
-            case 0:
-                // populate board
+        switch(getState().game_state){
+            case preGameIdle: 
+
+                /* =-=-=-=-=-=-=-=-=- at what point does a game of minesweeper actually start? -=-=-=-=-=-=-=-=-=-=-=-*/
+
+                // populate board with mines and numbers
                 dispatch(placeMines(x, y));
                 dispatch(placeNumbers());
-                // change game state
-                // uncover board
+
+                // change game state 
+                //dispatch(setGameState(gameInProgress));
+
+                // uncover tiles
+
+                // check win condition
+
                 // save to replay
                 break;
-            case 1:
-                // uncover board
+            case gameInProgress:
+                // uncover tiles
+
+                // check win condition
+
                 // save to replay
+                break;
+            case playingReplay:
+                //pause the replay and let people play from that state???
                 break;
             default:
                 // do nothing
         }
-
-        
     }
+}
+export const leftClick = ( x, y ) => {
+    // tiles are always able to report their clicks
+    //the engine will determine what to do with the click depending on the game_state
+    //i.e. if its the first click of a game, or to ignore it...
+return(dispatch, getState) => {
+
+    console.log("leftClick generated at [ " + x + " , " + y + "]");
+
+    //check game state
+    switch(getState().game_state){
+        case gameInProgress: 
+            //manipulate flag values
+        default:
+            // do nothing
+    }
+}
 }

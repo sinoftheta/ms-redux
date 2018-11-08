@@ -14,6 +14,17 @@ export const middle = 8;
 // TILE VALUES //
 export const mine = 9;
 
+
+// GAME STATES //
+export const preGameIdle = 0;
+export const gameInProgress = 1;
+export const postGameIdle = 2;
+export const playingReplay = 3;
+export const postReplayIdle = 4;
+
+
 // ACTION TYPES // ...because integer comparisons are faster than string comparisons :)
 
 export const SET_MENU = 0;
+
+

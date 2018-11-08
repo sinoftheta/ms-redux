@@ -3,34 +3,37 @@ import React, { Component } from 'react';
 
 // REDUX //
 import { connect } from 'react-redux';
-import { generateClick } from '../actions/boardActions';
+import { rightClick } from '../actions/boardActions';
+import {
+    mine, //value for mine
+    preGameIdle, gameInProgress, postGameIdle, playingReplay, postReplayIdle, //game states
+    } from '../data/definitions'
 
 class Tile extends Component {
 
     render() { // tile numbers and graphics will need to be easily rotateable
-        let tile = this.props.board[this.props.y][this.props.x];
+        //let tile = this.props.board[this.props.y][this.props.x];
 
-        let mined = "";
-        let num;
-
-        if(tile.val === 9){
-            mined = " mined";
-        }
-        else if(tile.val > 0 ){
-            num = tile.val;
-        }
-
-        //
-        return (
-            //onClick = () => this.props.generateClick(this.props.x, this.props.y)
-            <div className={"tile" + mined} id={ "" + this.props.x + "-" + this.props.y}
-            onClick={( x , y ) => this.props.generateClick( this.props.x , this.props.y)}
-            >
-                {num}
+        //tile rendering behavior
+        switch(this.props.game_state){
+            default:
+            case preGameIdle:
                 
-                {/*tile.place*/}
-            
-                {/* graphics, if needed */}
+                break;
+            case gameInProgress: //note: the tiles have the same rendering behavior while the game is in progress and playinh a replay
+            case playingReplay:
+                break;
+            case postGameIdle:
+            case postReplayIdle:
+                break;
+        }
+
+        return (
+            <div className={"tile"} id={ "" + this.props.x + "-" + this.props.y}
+            onClick={( x , y ) => this.props.rightClick( this.props.x , this.props.y)}>
+                {}
+                {}
+                {}
             </div>
         );
     }
@@ -40,14 +43,14 @@ class Tile extends Component {
 // REDUX MAPS
 const mapStateToProps = (state) => {
     return {
-        board: state.board,
+        //board: state.board,
         game_state: state.game_state,
     };
   };
   
   const mapDispatchToProps = (dispatch) => {
     return {
-        generateClick: (x,y) => dispatch(generateClick(x,y)),
+        rightClick: (x,y) => dispatch(rightClick(x,y)),
     };
   };
   
