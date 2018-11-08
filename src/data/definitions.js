@@ -1,5 +1,7 @@
+//...because integer comparisons are faster than string comparisons
 
-// CARDINAL DIRECTIONS //
+// import * as myModule from '/modules/my-module.js'; mayeb import as a namaespace
+// TILE PLACES //
 export const west = 0; 
 export const northWest = 1; 
 export const north = 2; 
@@ -13,6 +15,17 @@ export const middle = 8;
 
 // TILE VALUES //
 export const mine = 9;
+export const safe = 0;
+
+// CLICKS //
+export const leftMouse = 0;
+export const middleMouse = 1;
+export const rightMouse = 2;
+
+// MOUSE STATES //
+export const up = 0;
+export const down = 1;
+
 
 
 // GAME STATES //
@@ -23,8 +36,7 @@ export const playingReplay = 3;
 export const postReplayIdle = 4;
 
 
-// ACTION TYPES // ...because integer comparisons are faster than string comparisons :)
-
+// ACTION TYPES // 
 export const SET_MENU = 0;
 
 

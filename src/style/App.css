@@ -65,25 +65,69 @@
 /****** BOARD ******/
 
 #gameboard{
-  display: flex;
-  flex-direction: column;
+  width: min-content;
+  /*url('path'); for image backgrounds*/
+  background: linear-gradient(135deg, #0be48a 0%,#0a8d56 100%);
+  /*background: linear-gradient(135deg, #f2c963 0%,#ff7b00 99%);*/
 
 }
 .row{
   display: flex;
 }
+
+
+/****** TILES ********/
+
+/* STYLES FURTHER IN THE CSS FILE HAVE PRIORITY, NEED TO USE THIS FOR TILE CLICK AND DRAGGING*/
 .tile{
-  height: 20px;
-  width: 20px;
-  background: #cccccc;
+  height: 30px;
+  width: 30px;
+  
   border-style: solid;
-  border-width: 0.05px;
-  border-color: #aaaaaa;
+  border-width: 0.02px;
+  /*border-color: #8763422e;*/
+  border-color: #361e3b3d;
 
   text-align: center;
   color: #3e3e3e;
 
 }
-.mined{
-  background: #ff3300;
+
+.tile-not-revealed{
+  background: transparent;
 }
+.tile-revealed{
+  background: #dfdbb9;
+}
+.mouse-pressed:hover{
+  background: #c5c5c5;
+}
+.mouse-not-pressed:hover{
+  background: linear-gradient(135deg, #ffffff5b 0%,#ffffff27 100%);
+}
+
+.tile-val-1{
+  color: #3532f5;
+}
+.tile-val-2{
+  color: #047000
+}
+.tile-val-3{
+  color: #df0606;
+}
+.tile-val-4{
+  color: #02008f
+}
+.tile-val-5{
+  
+}
+.tile-val-6{
+  
+}
+.tile-val-7{
+  
+}
+.tile-val-8{
+  color: #444444
+}
+

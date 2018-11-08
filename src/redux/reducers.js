@@ -1,33 +1,44 @@
+// REDUX //
 import { combineReducers } from 'redux';
+
+// DEFINITIONS //
 import {
-    west, northWest, north, northEast, east, southEast, south, southWest, middle, //tile places
-    mine,
-    preGameIdle, gameInProgress, postGameIdle, playingReplay, postReplayIdle, //game states
+    //TILE PLACES
+    west, northWest, north, northEast, east, southEast, south, southWest, middle,
+
+    //TILE VALUES
+    safe,
+
+    //game states
+    preGameIdle,
+
+    // mouse states
+    up,
     } from '../data/definitions'
 
 //this file contains the reducers for general purpose variables, including the main board memory
 
 
 //define all action types as integers to make the switch statements faster
-const matrix = (cols,rows, defaultValue) => {
+const matrix = (cols,rows) => {
     var arr = [];
   
-    // Creates all lines:
+    // Creates all lines
     for(var i=0; i < rows; i++){
   
-        // Creates an empty line
+        // Create an empty line (with a length of "rows")
         arr.push([]);
   
-        // Adds cols to the empty line:
+        // Add cols to the empty line
         arr[i].push( new Array(cols));
   
-        for(var j=0; j < cols; j++){ // ITS A SCOPE/COPY ISSUE, 
-            // Initializes:
+        for(var j=0; j < cols; j++){
+            // Initialization
             arr[i][j] = {
                 revealed: false,
                 flagged: false,
                 questioned: false,
-                val: 0, // # of mines surrounding tiles. 9 means a bomb
+                val: safe, 
                 place: null, 
             }
             
@@ -42,7 +53,6 @@ const matrix = (cols,rows, defaultValue) => {
                 arr[i][j].place = southWest;
             }
             else if( i === rows - 1 && j === cols - 1){
-                //console.log("fire");
                 arr[i][j].place = southEast;
             }
             else if( i === 0 ){
@@ -74,6 +84,7 @@ const tileInit = {
         border: null, 
 }
 
+// STATES
 const current_menu = (state = 0, action) => { // 0 means no menu, each menu has a corresponding id
     switch(action.type){
         case 'SET_MENU':
@@ -91,9 +102,16 @@ const game_state = (state = preGameIdle, action) => {
             return state;
     }
 }
+const mouse_state = (state = up, action) => {
+    switch(action.type){
+        case 'SET_MOUSE_STATE':
+            return action.val;
+        default:
+            return state;
+    }
+}
 
-
-const board = ( state = matrix( 16, 16, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
+const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     switch(action.type){
         // spread operators and slice() miiiiight make this kinda resource intensive idk
         case 'SET_TILE_VALUE':
@@ -137,6 +155,7 @@ export default combineReducers({ //creates the root reducer, its imported and us
 
     current_menu,
     game_state,
+    mouse_state,
 
     board,
 

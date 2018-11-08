@@ -39,12 +39,21 @@ class App extends Component {
         
                 {/* needs to go above game area but below menus*/}
 
+                {/*
                 <div id="menu-area">
 			        <MenuToggleButton/>
         	        <GenSettings/>
-        	        {/* the oter menus*/}
+        	        {/* the oter menus}
                 </div>
+                
+                */}
         
+                <div id="DEBUG">
+                    <div>game_state: {this.props.game_state}</div>
+                    <div>current_menu: {this.props.current_menu}</div>
+                    <div>mouse_state: {this.props.mouse_state}</div>
+
+                </div>
             </div>
         );
     }
@@ -53,16 +62,19 @@ class App extends Component {
 
 // REDUX MAPS
 const mapStateToProps = (state) => {
-  return {
-	current_menu: state.current_menu,
-  };
+    return {
+        current_menu: state.current_menu,
+        game_state: state.game_state,
+        mouse_state: state.mouse_state,
+
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-	  setMenu: (id) => dispatch(setMenu(id)),
+    return {
+	    setMenu: (id) => dispatch(setMenu(id)),
 
-  };
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

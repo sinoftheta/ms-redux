@@ -197,13 +197,13 @@ export const openNeighbors = ( x , y ) => {
 
 // BOARD CLICK BEHAVIOR
 
-export const rightClick = ( x, y ) => {
+export const leftClick = ( x, y ) => {
         // tiles are always able to report their clicks
         //the engine will determine what to do with the click depending on the game_state
         //i.e. if its the first click of a game, or to ignore it...
     return(dispatch, getState) => {
 
-        console.log("rightClick generated at [ " + x + " , " + y + "]");
+        console.log("leftClick generated at [ " + x + " , " + y + "]");
 
         //check game state
         switch(getState().game_state){
@@ -216,7 +216,7 @@ export const rightClick = ( x, y ) => {
                 dispatch(placeNumbers());
 
                 // change game state 
-                //dispatch(setGameState(gameInProgress));
+                dispatch(setGameState(gameInProgress));
 
                 // uncover tiles
 
@@ -239,13 +239,13 @@ export const rightClick = ( x, y ) => {
         }
     }
 }
-export const leftClick = ( x, y ) => {
+export const rightClick = ( x, y ) => {
     // tiles are always able to report their clicks
     //the engine will determine what to do with the click depending on the game_state
     //i.e. if its the first click of a game, or to ignore it...
 return(dispatch, getState) => {
 
-    console.log("leftClick generated at [ " + x + " , " + y + "]");
+    console.log("rightClick generated at [ " + x + " , " + y + "]");
 
     //check game state
     switch(getState().game_state){
