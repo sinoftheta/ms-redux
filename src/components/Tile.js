@@ -10,7 +10,7 @@ import { setMouseState } from '../actions/general';
 // DEFINITIONS //
 import {
     // TILE VALUES //
-    safe, mine,
+    mine,
 
     // CLICKS //
     leftMouse, middleMouse, rightMouse,
@@ -32,9 +32,18 @@ class Tile extends Component {
         let tileStateClass = "";
         let valueClass = " tile-val-" + tile.val;
         let val;
-        if( tile.val < mine && !tile.revealed){
-            tile.val !== 0? val = tile.val: val = null;
+        if(tile.revealed){
             tileStateClass = " tile-revealed";
+            (tile.val > 0  && tile.val < mine)? val = tile.val: val = null;
+
+
+            //for testing
+            if(tile.val === mine){
+                val = "*";
+            }
+        }
+        else{
+            tileStateClass = " tile-not-revealed";
         }
         //tile rendering behavior
 

@@ -20,7 +20,6 @@ export const questioned = 2;
 
 // TILE VALUES //
 export const mine = 9;
-export const safe = 0;
 
 // CLICKS //
 export const leftMouse = 0;

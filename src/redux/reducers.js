@@ -5,10 +5,7 @@ import { combineReducers } from 'redux';
 import {
     //TILE PLACES
     west, northWest, north, northEast, east, southEast, south, southWest, middle,
-
-    //TILE VALUES
-    safe,
-
+    
     //game states
     preGameIdle,
 
@@ -38,39 +35,39 @@ const matrix = (cols,rows) => {
                 revealed: false,
                 flagged: false,
                 questioned: false,
-                val: safe, 
-                place: null, 
+                val: 0, 
+                border: null, 
             }
             
 
             if(i === 0 && j === 0){
-                arr[i][j].place = northWest;
+                arr[i][j].border = northWest;
             }
             else if( i === 0 && j === cols - 1){
-                arr[i][j].place = northEast;
+                arr[i][j].border = northEast;
             }
             else if( i === rows - 1 && j === 0){
-                arr[i][j].place = southWest;
+                arr[i][j].border = southWest;
             }
             else if( i === rows - 1 && j === cols - 1){
-                arr[i][j].place = southEast;
+                arr[i][j].border = southEast;
             }
             else if( i === 0 ){
-                arr[i][j].place = north;
+                arr[i][j].border = north;
             }
             else if( i === rows - 1){
-                arr[i][j].place = south;
+                arr[i][j].border = south;
             }
             else if( j === 0 ){
-                arr[i][j].place = west;
+                arr[i][j].border = west;
             }
             else if( j === cols - 1){
-                arr[i][j].place = east;
+                arr[i][j].border = east;
             }
             else{
-                arr[i][j].place = middle;
+                arr[i][j].border = middle;
             }
-            //console.log(arr[i][j].place);
+            //console.log(arr[i][j].border);
         }
     }
   
@@ -81,7 +78,7 @@ const tileInit = {
         flagged: false,
         questioned: false,
         val: 0, // # of mines surrounding tiles. 9 means a bomb
-        place: null, 
+        border: null, 
 }
 
 // STATES
@@ -115,6 +112,23 @@ const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is j
     switch(action.type){
         // spread operators and slice() miiiiight make this kinda resource intensive idk
         case 'SET_FLAG':
+
+        case 'REVEAL_TILE':
+            return [
+                ...state.slice(0, action.y),
+                [
+                    ...state[action.y].slice(0, action.x),
+                    {
+                        revealed: true,
+                        flagged: state[action.y][action.x],
+                        questioned: state[action.y][action.x],
+                        val: state[action.y][action.x].val,
+                        border: state[action.y][action.x].border,
+                    },
+                    ...state[action.y].slice(action.x + 1)
+                ],
+                ...state.slice( action.y + 1)
+            ];
         case 'SET_TILE_VALUE':
             return [
                 ...state.slice(0, action.y),
@@ -125,7 +139,7 @@ const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is j
                         flagged: false,
                         questioned: false,
                         val: action.val,
-                        border: state[action.y][action.x].place,
+                        border: state[action.y][action.x].border,
                     },
                     ...state[action.y].slice(action.x + 1)
                 ],

@@ -19,6 +19,14 @@ export const setTileValue = ( x, y, val = mine ) => {
         val: val,
     }
 }
+export const revealTile = ( x, y,) => {
+    console.log("revealing [ " + x + " , " + y + " ]");
+    return{
+        type: 'REVEAL_TILE',
+        x: x,
+        y: y,
+    }
+}
 
 
 export const placeMines = (x_init, y_init) => {
@@ -119,7 +127,7 @@ export const placeNumbers = () => {
                 }
                 let adjMines = 0;
 
-                switch(board[i][j].place){ //could I use a generator function or array or something to automate this?
+                switch(board[i][j].border){ //could I use a generator function or array or something to automate this?
                     case middle: 
                         if(board[i][j + 1].val === mine) adjMines++; //check east
                         if(board[i + 1][j + 1].val === mine) adjMines++;//check southeast
@@ -186,19 +194,74 @@ export const placeNumbers = () => {
         }
     }
 }
-export const revealTile = ( x , y ) => {
-
-    //reveal self
-
-    //check win condition
-        //when revealing a tile, increment an "tilesRevealed" counter
-        //when tilesRevealed = boardArea - #ofMinesOnBoard, the game is won
-
-    //if self has a value of zero
-        //list through all neighbors, call revealTile for each neighbor that is unflagged and has a zero value
+export const uncoverTiles = ( x , y ) => {
+    return(dispatch, getState) => {
 
 
+        
 
+        let board = getState().board;
+
+        if(board[y][x].revealed){
+            return;
+        }
+        console.log("uncovering [ " + x + " , " + y + " ]");
+        //reveal self
+        
+        dispatch(revealTile( x , y));
+
+
+        //check lose condition
+        //check win condition... maybe I check the win condition seperately...?
+            //when revealing a tile, increment an "tilesRevealed" counter
+            //when tilesRevealed = boardArea - #ofMinesOnBoard, the game is won
+
+        //check if self has a value of zero
+        console.log(board[y][x].val);
+        if(board[y][x].val === 0){
+            //reveal neighbors
+
+            //TODO: the if statements here are to check for flags
+            switch(board[y][x].border){ //could I use a generator function or array or something to automate this?
+                case middle: 
+                    if(!board[y][x + 1].flagged)        dispatch(uncoverTiles( x + 1 , y ));            //check east
+                    if(!board[y + 1][x + 1].flagged)    dispatch(uncoverTiles( x + 1 , y + 1 ));        //check southeast
+                    if(!board[y + 1][x].flagged)        dispatch(uncoverTiles( x , y + 1 ));            //check south
+                    if(!board[y + 1][x - 1].flagged)    dispatch(uncoverTiles( x - 1 , y + 1 ));        //check southwest
+                    if(!board[y][x - 1].flagged)        dispatch(uncoverTiles( x - 1 , y ));            //check west
+                    if(!board[y - 1][x - 1].flagged)    dispatch(uncoverTiles( x - 1 , y - 1 ));        //check northwest
+                    if(!board[y - 1][x].flagged)        dispatch(uncoverTiles( x , y - 1 ));            //check north
+                    if(!board[y - 1 ][x + 1].flagged)   dispatch(uncoverTiles( x + 1 , y - 1 ));        //check northeast
+                    break;
+                case north:
+                    
+                    break;
+                case northEast: 
+            
+                    break;
+                case east: 
+               
+                    break;
+                case southEast: 
+          
+                    break;
+                case south: 
+        
+                    break;
+                case southWest: 
+     
+                    break;
+                case west: 
+                
+                    break;
+                case northWest: 
+                
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
 
 
@@ -210,7 +273,7 @@ export const leftClick = ( x, y ) => {
         //i.e. if its the first click of a game, or to ignore it...
     return(dispatch, getState) => {
 
-        console.log("leftClick generated at [ " + x + " , " + y + "]");
+        //console.log("leftClick generated at [ " + x + " , " + y + "]");
 
         //check game state
         switch(getState().game_state){
@@ -226,6 +289,7 @@ export const leftClick = ( x, y ) => {
                 dispatch(setGameState(gameInProgress));
 
                 // uncover tiles
+                dispatch(uncoverTiles( x , y));
 
                 // check win condition
 
@@ -233,6 +297,7 @@ export const leftClick = ( x, y ) => {
                 break;
             case gameInProgress:
                 // uncover tiles
+                dispatch(uncoverTiles( x , y));
 
                 // check win condition
 

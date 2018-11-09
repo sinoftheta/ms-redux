@@ -87,6 +87,7 @@
   border-color: #361e3b3d;
 
   text-align: center;
+  vertical-align: center;
 
   font-family: 'Bungee';
   font-size: 17px;
@@ -103,15 +104,15 @@
   background: transparent;
 }
 .tile-revealed{
-  background: #dfdbb9;
+  background: #cccccc;
 }
 
 /* this "adding classes only to use their hover" thing works, but maybe try aphrodite*/
 .mouse-pressed:hover{
-  background: #dfdbb9;
+  /*background: #cccccc;*/
 }
 .mouse-not-pressed:hover{
-  background: linear-gradient(135deg, #ffffff5b 0%,#ffffff27 100%);
+  /*background: linear-gradient(135deg, #ffffff5b 0%,#ffffff27 100%);*/
 }
 
 .tile-val-1{
