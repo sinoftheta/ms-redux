@@ -109,10 +109,10 @@
 
 /* this "adding classes only to use their hover" thing works, but maybe try aphrodite*/
 .mouse-pressed:hover{
-  /*background: #cccccc;*/
+  background: #cccccc;
 }
-.mouse-not-pressed:hover{
-  /*background: linear-gradient(135deg, #ffffff5b 0%,#ffffff27 100%);*/
+.tile-not-revealed.mouse-not-pressed:hover{
+  background: linear-gradient(135deg, #ffffff5b 0%,#ffffff27 100%);
 }
 
 .tile-val-1{
