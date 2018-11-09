@@ -75,8 +75,7 @@ class Tile extends Component {
 
 
 
-        
-
+    
 
         // assign hover classes based on click state
         if(this.props.mouse_state === up){ // holy shit this works, may have to have this depend on the revealed state as well
