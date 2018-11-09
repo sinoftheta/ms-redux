@@ -234,28 +234,52 @@ export const uncoverTiles = ( x , y ) => {
                     if(!board[y - 1 ][x + 1].flagged)   dispatch(uncoverTiles( x + 1 , y - 1 ));        //check northeast
                     break;
                 case north:
-                    
+                    if(!board[y][x + 1].flagged)        dispatch(uncoverTiles( x + 1 , y ));            //check east
+                    if(!board[y + 1][x + 1].flagged)    dispatch(uncoverTiles( x + 1 , y + 1 ));        //check southeast
+                    if(!board[y + 1][x].flagged)        dispatch(uncoverTiles( x , y + 1 ));            //check south
+                    if(!board[y + 1][x - 1].flagged)    dispatch(uncoverTiles( x - 1 , y + 1 ));        //check southwest
+                    if(!board[y][x - 1].flagged)        dispatch(uncoverTiles( x - 1 , y ));            //check west
                     break;
                 case northEast: 
-            
+                    if(!board[y + 1][x].flagged)        dispatch(uncoverTiles( x , y + 1 ));            //check south
+                    if(!board[y + 1][x - 1].flagged)    dispatch(uncoverTiles( x - 1 , y + 1 ));        //check southwest
+                    if(!board[y][x - 1].flagged)        dispatch(uncoverTiles( x - 1 , y ));            //check west
                     break;
                 case east: 
-               
+                    if(!board[y + 1][x].flagged)        dispatch(uncoverTiles( x , y + 1 ));            //check south
+                    if(!board[y + 1][x - 1].flagged)    dispatch(uncoverTiles( x - 1 , y + 1 ));        //check southwest
+                    if(!board[y][x - 1].flagged)        dispatch(uncoverTiles( x - 1 , y ));            //check west
+                    if(!board[y - 1][x - 1].flagged)    dispatch(uncoverTiles( x - 1 , y - 1 ));        //check northwest
+                    if(!board[y - 1][x].flagged)        dispatch(uncoverTiles( x , y - 1 ));            //check north
                     break;
                 case southEast: 
-          
+                    if(!board[y][x - 1].flagged)        dispatch(uncoverTiles( x - 1 , y ));            //check west
+                    if(!board[y - 1][x - 1].flagged)    dispatch(uncoverTiles( x - 1 , y - 1 ));        //check northwest
+                    if(!board[y - 1][x].flagged)        dispatch(uncoverTiles( x , y - 1 ));            //check north
                     break;
                 case south: 
-        
+                    if(!board[y][x - 1].flagged)        dispatch(uncoverTiles( x - 1 , y ));            //check west
+                    if(!board[y - 1][x - 1].flagged)    dispatch(uncoverTiles( x - 1 , y - 1 ));        //check northwest
+                    if(!board[y - 1][x].flagged)        dispatch(uncoverTiles( x , y - 1 ));            //check north
+                    if(!board[y - 1 ][x + 1].flagged)   dispatch(uncoverTiles( x + 1 , y - 1 ));        //check northeast
+                    if(!board[y][x + 1].flagged)        dispatch(uncoverTiles( x + 1 , y ));            //check east
                     break;
                 case southWest: 
-     
+                    if(!board[y - 1][x].flagged)        dispatch(uncoverTiles( x , y - 1 ));            //check north
+                    if(!board[y - 1 ][x + 1].flagged)   dispatch(uncoverTiles( x + 1 , y - 1 ));        //check northeast
+                    if(!board[y][x + 1].flagged)        dispatch(uncoverTiles( x + 1 , y ));            //check east
                     break;
                 case west: 
-                
+                    if(!board[y][x + 1].flagged)        dispatch(uncoverTiles( x + 1 , y ));            //check east
+                    if(!board[y + 1][x + 1].flagged)    dispatch(uncoverTiles( x + 1 , y + 1 ));        //check southeast
+                    if(!board[y + 1][x].flagged)        dispatch(uncoverTiles( x , y + 1 ));            //check south
+                    if(!board[y - 1][x].flagged)        dispatch(uncoverTiles( x , y - 1 ));            //check north
+                    if(!board[y - 1 ][x + 1].flagged)   dispatch(uncoverTiles( x + 1 , y - 1 ));        //check northeast
                     break;
                 case northWest: 
-                
+                    if(!board[y][x + 1].flagged)        dispatch(uncoverTiles( x + 1 , y ));            //check east
+                    if(!board[y + 1][x + 1].flagged)    dispatch(uncoverTiles( x + 1 , y + 1 ));        //check southeast
+                    if(!board[y + 1][x].flagged)        dispatch(uncoverTiles( x , y + 1 ));            //check south
                     break;
                 default:
                     break;

@@ -140,7 +140,8 @@
   color: #464646
 }
 .num-container{
-  position: absolute;
+  text-align:center;
+  line-height:2;
   
 }
 
