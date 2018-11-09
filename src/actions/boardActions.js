@@ -203,23 +203,23 @@ export const uncoverTiles = ( x , y ) => {
             return;
         }
 
-        //reveal self
+        //reveal tile
         dispatch(revealTile( x , y));
 
 
         //check lose condition
         if(board[y][x].val === mine){
-            alert("you lost! :(");
+            dispatch(setGameState(postGameIdle));
+            //alert("you lost!");
         }
 
         //check win condition
-        if(getState().tiles_cleared === board.length * board[0].length - totalMines){ // 99 WILL BE REPLACED BY NUMBER OF MINES
-            alert("you win!");
+        if(getState().tiles_cleared === board.length * board[0].length - totalMines){ // TOTAL MINES MUST BE READ FROM STORE
+            dispatch(setGameState(postGameIdle));
+            //alert("you won!");
         }
         
-
-        //check if self has a value of zero
-        console.log(board[y][x].val);
+        //if tile is a zero, recurse over all neighbors
         if(board[y][x].val === 0){
             //reveal neighbors
 

@@ -32,41 +32,50 @@ class Tile extends Component {
         let tileStateClass = "";
         let valueClass = " tile-val-" + tile.val;
         let val;
-        if(tile.revealed){
-            tileStateClass = " tile-revealed";
-            (tile.val > 0  && tile.val < mine)? val = tile.val: val = null;
-
-
-            //for testing
-            if(tile.val === mine){
-                val = "*";
-            }
-        }
-        else{
-            tileStateClass = " tile-not-revealed";
-        }
         //tile rendering behavior
 
-        /*
+        // need to write equivelent logic
         switch(this.props.game_state){
             default:
             case preGameIdle:
             case gameInProgress:
             case playingReplay:
-                // render a tile based on its value and flags
-                
-                
+            //only reveal revealed tiles
+                if(tile.revealed){
+                    tileStateClass = " tile-revealed";
+                    (tile.val > 0  && tile.val < mine)? val = tile.val: val = null;
+                }
+                else{
+                    tileStateClass = " tile-not-revealed";
+                }
                 break;
             case postGameIdle:
             case postReplayIdle:
+                //reveal revealed tiles and all mines
+
+                // TODO: account for incorrect flags and the clicked mine
+                if(tile.revealed){
+                    tileStateClass = " tile-revealed";
+                    (tile.val > 0  && tile.val < mine)? val = tile.val: val = null;
+                }
+                else{
+                    tileStateClass = " tile-not-revealed";
+                }
+                if(tile.val === mine){
+                    val = '*';
+                    tileStateClass = " tile-revealed";
+                }
                 break;
         }
-        */ 
-       //honestly just not gonna worry about the post idle states rn
 
 
-        //look into using aphrodite to just dynamically change the hover class depending on the click state
-        //no need to add a class to every tile, that may be resource intensive idk
+
+
+
+        
+
+
+        // assign hover classes based on click state
         if(this.props.mouse_state === up){ // holy shit this works, may have to have this depend on the revealed state as well
             hoverClickClass = " mouse-not-pressed";
         }
