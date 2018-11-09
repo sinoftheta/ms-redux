@@ -52,7 +52,7 @@ class App extends Component {
                     <div>game_state: {this.props.game_state}</div>
                     <div>current_menu: {this.props.current_menu}</div>
                     <div>mouse_state: {this.props.mouse_state}</div>
-
+                    <div>tiles_cleared: {this.props.tiles_cleared}</div>
                 </div>
             </div>
         );
@@ -66,6 +66,7 @@ const mapStateToProps = (state) => {
         current_menu: state.current_menu,
         game_state: state.game_state,
         mouse_state: state.mouse_state,
+        tiles_cleared: state.tiles_cleared,
 
     };
 };

@@ -5,6 +5,7 @@ import {
     preGameIdle, gameInProgress, postGameIdle, playingReplay, postReplayIdle, //game states
     } from '../data/definitions'
 
+const totalMines = 15; 
 export const setGameState = (id) => {
     return{
         type: 'SET_GAME_STATE',
@@ -28,7 +29,6 @@ export const revealTile = ( x, y,) => {
     }
 }
 
-
 export const placeMines = (x_init, y_init) => {
     // TODO; get minesCounter, and seed
     // from the settings the same way that 
@@ -36,7 +36,7 @@ export const placeMines = (x_init, y_init) => {
     return(dispatch, getState) => {
 
         // need to get all these from the store
-        let minesToPlace = 99; 
+        let minesToPlace = totalMines; 
         let salt  = "contra";
         let height = getState().board.length;
         let width = getState().board[0].length;
@@ -196,25 +196,27 @@ export const placeNumbers = () => {
 }
 export const uncoverTiles = ( x , y ) => {
     return(dispatch, getState) => {
-
-
-        
-
         let board = getState().board;
 
+        // check if tile has already been revealed
         if(board[y][x].revealed){
             return;
         }
-        console.log("uncovering [ " + x + " , " + y + " ]");
+
         //reveal self
-        
         dispatch(revealTile( x , y));
 
 
         //check lose condition
-        //check win condition... maybe I check the win condition seperately...?
-            //when revealing a tile, increment an "tilesRevealed" counter
-            //when tilesRevealed = boardArea - #ofMinesOnBoard, the game is won
+        if(board[y][x].val === mine){
+            alert("you lost! :(");
+        }
+
+        //check win condition
+        if(getState().tiles_cleared === board.length * board[0].length - totalMines){ // 99 WILL BE REPLACED BY NUMBER OF MINES
+            alert("you win!");
+        }
+        
 
         //check if self has a value of zero
         console.log(board[y][x].val);
@@ -339,16 +341,16 @@ export const rightClick = ( x, y ) => {
     // tiles are always able to report their clicks
     //the engine will determine what to do with the click depending on the game_state
     //i.e. if its the first click of a game, or to ignore it...
-return(dispatch, getState) => {
+    return(dispatch, getState) => {
 
-    console.log("rightClick generated at [ " + x + " , " + y + "]");
+        console.log("rightClick generated at [ " + x + " , " + y + "]");
 
-    //check game state
-    switch(getState().game_state){
-        case gameInProgress: 
-            //manipulate flag values
-        default:
-            // do nothing
+        //check game state
+        switch(getState().game_state){
+            case gameInProgress: 
+                //manipulate flag values
+            default:
+                // do nothing
+        }
     }
-}
 }

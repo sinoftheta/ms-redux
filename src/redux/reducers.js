@@ -5,7 +5,7 @@ import { combineReducers } from 'redux';
 import {
     //TILE PLACES
     west, northWest, north, northEast, east, southEast, south, southWest, middle,
-    
+
     //game states
     preGameIdle,
 
@@ -99,6 +99,16 @@ const game_state = (state = preGameIdle, action) => {
             return state;
     }
 }
+const tiles_cleared = (state = 0, action) => {
+    switch(action.type){
+        case 'RESET_GAME':
+            return 0;
+        case 'REVEAL_TILE':
+            return state + 1;
+        default:
+            return state;
+    }
+}
 const mouse_state = (state = up, action) => {
     switch(action.type){
         case 'SET_MOUSE_STATE':
@@ -108,7 +118,7 @@ const mouse_state = (state = up, action) => {
     }
 }
 
-const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
+const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     switch(action.type){
         // spread operators and slice() miiiiight make this kinda resource intensive idk
         case 'SET_FLAG':
@@ -174,6 +184,7 @@ export default combineReducers({ //creates the root reducer, its imported and us
     mouse_state,
 
     board,
+    tiles_cleared,
 
 
 
