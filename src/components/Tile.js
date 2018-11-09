@@ -34,6 +34,9 @@ class Tile extends Component {
         let val;
         //tile rendering behavior
 
+
+        // NEED TO FORCE REVEAL ALL TILES IF GAME IS WON //
+
         // need to write equivelent logic
         switch(this.props.game_state){
             default:
@@ -79,7 +82,7 @@ class Tile extends Component {
         if(this.props.mouse_state === up){ // holy shit this works, may have to have this depend on the revealed state as well
             hoverClickClass = " mouse-not-pressed";
         }
-        else{
+        else{ //DISSABLE THIS WHEN GAMESTATE IS POSTGAMEIDLE OR POST REPLAY IDLE
             hoverClickClass = " mouse-pressed";
         }
         return (

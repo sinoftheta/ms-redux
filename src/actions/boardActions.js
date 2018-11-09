@@ -210,13 +210,13 @@ export const uncoverTiles = ( x , y ) => {
         //check lose condition
         if(board[y][x].val === mine){
             dispatch(setGameState(postGameIdle));
-            //alert("you lost!");
+            alert("you lost!");
         }
 
         //check win condition
         if(getState().tiles_cleared === board.length * board[0].length - totalMines){ // TOTAL MINES MUST BE READ FROM STORE
             dispatch(setGameState(postGameIdle));
-            //alert("you won!");
+            alert("you won!");
         }
         
         //if tile is a zero, recurse over all neighbors
