@@ -16,7 +16,7 @@ import Board from './components/Board';
 
 // REDUX //
 import { connect } from 'react-redux';
-import { setMenu } from './actions/general';
+import { setMenu , resetGame } from './actions/general';
 
 class App extends Component {
     render() {
@@ -53,6 +53,7 @@ class App extends Component {
                     <div>current_menu: {this.props.current_menu}</div>
                     <div>mouse_state: {this.props.mouse_state}</div>
                     <div>tiles_cleared: {this.props.tiles_cleared}</div>
+                    <button onClick={() => this.resetGame()}>reset</button>
                 </div>
             </div>
         );
@@ -73,7 +74,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-	    setMenu: (id) => dispatch(setMenu(id)),
+        setMenu: (id) => dispatch(setMenu(id)),
+        resetGame: () => dispatch(resetGame()),
 
     };
 };

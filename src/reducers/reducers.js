@@ -176,7 +176,7 @@ const replay = (state = [], action) => {
 
 
 
-// COMBINE REDUCERS
+// CREATE ROOT REDUCERS
 export default combineReducers({ //creates the root reducer, its imported and used by the store
 
     current_menu,
@@ -185,8 +185,5 @@ export default combineReducers({ //creates the root reducer, its imported and us
 
     board,
     tiles_cleared,
-
-
-
 
 });

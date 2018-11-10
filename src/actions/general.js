@@ -1,3 +1,4 @@
+import * as A from '../data/definitions';
 export const setMenu = (id) => {
     return{
         type: 'SET_MENU',
@@ -15,5 +16,10 @@ export const editSettings = (setting, value) => {
         type: 'EDIT_SETTING',
         setting: setting,
         value: value,
+    }
+}
+export const resetGame = () => {
+    return{
+        type: 'RESET_GAME',
     }
 }
