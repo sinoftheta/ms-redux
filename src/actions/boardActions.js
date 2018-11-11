@@ -10,7 +10,7 @@ import {
     preGameIdle, gameInProgress, postGameIdle, playingReplay, postReplayIdle,
 
     // actions
-    SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE,
+    SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE, SET_LAST_GAME_WON,
     } from '../other/definitions';
 import { evalNeighbors } from '../other/functions';
 
@@ -22,6 +22,12 @@ export const setGameState = (id) => {
     return{
         type: SET_GAME_STATE,
         id: id,
+    }
+}
+export const setLastGameWon = (val) => {
+    return{
+        type: SET_LAST_GAME_WON,
+        val: val,
     }
 }
 export const setTileValue = ( x, y, val = mine ) => {
@@ -122,28 +128,33 @@ export const uncoverTiles = ( x , y ) => {
 
         // check if tile has already been revealed
         if(board[y][x].revealed){
+            //check win condition (for after recusrion)
+            if(getState().tiles_cleared === board.length * board[0].length - totalMines){ // TOTAL MINES MUST BE READ FROM STORE
+                dispatch(setGameState(postGameIdle));
+                dispatch(setLastGameWon(true));
+            }
             return;
         }
 
         //reveal tile
         dispatch(revealTile( x , y));
 
+        if(getState().tiles_cleared === board.length * board[0].length - totalMines){ // TOTAL MINES MUST BE READ FROM STORE
+            dispatch(setGameState(postGameIdle));
+            dispatch(setLastGameWon(true));
+            return;
+        }
+
 
         //check lose condition
         if(board[y][x].val === mine){
             dispatch(setGameState(postGameIdle));
-            alert("you lost!");
+            dispatch(setLastGameWon(false));
         }
 
-        //check win condition **** BUG: win triggers too early sometimes ****
-        if(getState().tiles_cleared === board.length * board[0].length - totalMines){ // TOTAL MINES MUST BE READ FROM STORE
-            dispatch(setGameState(postGameIdle));
-            alert("you won!");
-        }
-        
         //if tile is a zero, recurse over all neighbors
         if(board[y][x].val === 0){
-            evalNeighbors( board , x , y , "flagged" , false , ( x , y ) => {dispatch(uncoverTiles( x , y ))} );
+            evalNeighbors( board , x , y , "flagged" , false , ( x , y ) => dispatch(uncoverTiles( x , y )) );
         }
     }
 }

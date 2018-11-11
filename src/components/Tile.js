@@ -34,6 +34,8 @@ class Tile extends Component {
         let val;
         //tile rendering behavior
 
+        //A tile can have the classes: tile-revealed
+
 
         // NEED TO FORCE REVEAL ALL TILES IF GAME IS WON //
 

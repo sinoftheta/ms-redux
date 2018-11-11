@@ -13,19 +13,22 @@ class Board extends Component {
 
         // map the visible board
         //console.log(this.props.board);
-        let board = this.props.board.map((row, i) =>
+        let tiles = this.props.board.map((row, i) =>
                 <div id={"row-" + i} className="row" key={i}>
                     {
                         row.map((tile, j) =>
-                            <Tile x={j} y={i} key={j} tile_data={this.props.board[i][j]}/>//needs to be a deep copy I think... hmmm
+                            <Tile x={j} y={i} key={j} tile_data={this.props.board[i][j]}/>
                         )
                     }
                     </div>
         );
         return (
-            <div id="gameboard">
-                {board}
+            <div id="board">
+                <div id="grid">
+                    {tiles}
+                </div>
             </div>
+
         );
     }
 }
@@ -33,18 +36,15 @@ class Board extends Component {
 
 // REDUX MAPS
 const mapStateToProps = (state) => {
-
-    
     return {
-        //current_menu: state.current_menu, //might not need? nah man I dont think I do
         board: state.board,
     };
-  };
+};
   
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         setMenu: (id) => dispatch(setMenu(id)),
     };
-  };
+};
   
-  export default connect(mapStateToProps, mapDispatchToProps)(Board);
+export default connect(mapStateToProps, mapDispatchToProps)(Board);

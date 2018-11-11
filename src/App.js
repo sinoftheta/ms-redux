@@ -9,14 +9,13 @@ import GenSettings from './views/GenSettings';
 
 // COMPONENTS //
 import MenuToggleButton from './components/MenuToggleButton';
-import Counter from './components/Counter';
 import Board from './components/Board';
+import Debug from './components/Debug';
 
 // JSON //
 
 // REDUX //
 import { connect } from 'react-redux';
-import { setMenu , resetGame } from './actions/general';
 
 class App extends Component {
     render() {
@@ -47,14 +46,7 @@ class App extends Component {
                 </div>
                 
                 */}
-        
-                <div id="DEBUG">
-                    <div>game_state: {this.props.game_state}</div>
-                    <div>current_menu: {this.props.current_menu}</div>
-                    <div>mouse_state: {this.props.mouse_state}</div>
-                    <div>tiles_cleared: {this.props.tiles_cleared}</div>
-                    <button onClick={() => this.resetGame()}>reset</button>
-                </div>
+                <Debug/>
             </div>
         );
     }
@@ -64,19 +56,17 @@ class App extends Component {
 // REDUX MAPS
 const mapStateToProps = (state) => {
     return {
-        current_menu: state.current_menu,
+        current_menu: state.current_menu, //dont think the app needs much of these
         game_state: state.game_state,
         mouse_state: state.mouse_state,
         tiles_cleared: state.tiles_cleared,
+        last_game_won: state.last_game_won,
 
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setMenu: (id) => dispatch(setMenu(id)),
-        resetGame: () => dispatch(resetGame()),
-
     };
 };
 

@@ -64,10 +64,11 @@
 
 /****** BOARD ******/
 
-#gameboard{
+#grid{
+  margin: 10px;
   width: min-content;
   /*url('path'); for image backgrounds*/
-  background: linear-gradient(135deg, #0be48a 0%,#0a8d56 100%);
+  background: linear-gradient(135deg, #320147 0%,#180022 100%);
   /*background: linear-gradient(135deg, #f2c963 0%,#ff7b00 99%);*/
 
 }
@@ -112,7 +113,7 @@
   background: #cccccc;
 }
 .tile-not-revealed.mouse-not-pressed:hover{
-  background: linear-gradient(135deg, #ffffff5b 0%,#ffffff27 100%);
+  background: linear-gradient(135deg, #ffffff80 0%,#ffffff27 100%);
 }
 
 .tile-val-1{

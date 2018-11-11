@@ -1,6 +1,8 @@
 // REDUX //
 import { combineReducers } from 'redux';
 
+// OBJECT SPREAD OPERATOR //
+
 // DEFINITIONS //
 import {
     // tile borders
@@ -13,12 +15,14 @@ import {
     up,
 
     // actions
-    SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE
+    SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE, SET_LAST_GAME_WON,
  
     } from '../other/definitions';
 
 // FUNCTIONS //
 import { matrix } from '../other/functions';
+
+
 
 //this file contains the reducers for general purpose variables, including the main board memory
 
@@ -69,6 +73,17 @@ const mouse_state = (state = up, action) => {
             return state;
     }
 }
+// FLAGS
+
+const last_game_won = (state = false, action) =>{
+    switch(action.type){
+        case SET_LAST_GAME_WON:
+        return action.val;
+    default:
+        return state;
+
+    }
+}
 
 const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     switch(action.type){
@@ -80,6 +95,7 @@ const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is j
                 ...state.slice(0, action.y),
                 [
                     ...state[action.y].slice(0, action.x),
+                    /*
                     {
                         revealed: true,
                         flagged: state[action.y][action.x],
@@ -87,6 +103,12 @@ const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is j
                         val: state[action.y][action.x].val,
                         border: state[action.y][action.x].border,
                     },
+                    */
+                    {
+                        ...state[action.y][action.x],
+                        revealed: true,
+                    },
+
                     ...state[action.y].slice(action.x + 1)
                 ],
                 ...state.slice( action.y + 1)
@@ -96,6 +118,7 @@ const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is j
                 ...state.slice(0, action.y),
                 [
                     ...state[action.y].slice(0, action.x),
+                    /*
                     {
                         revealed: false,
                         flagged: false,
@@ -103,6 +126,11 @@ const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is j
                         val: action.val,
                         border: state[action.y][action.x].border,
                     },
+                    */
+                   {
+                        ...state[action.y][action.x],
+                        val: action.val
+                   },
                     ...state[action.y].slice(action.x + 1)
                 ],
                 ...state.slice( action.y + 1)
@@ -137,5 +165,6 @@ export default combineReducers({ //creates the root reducer, its imported and us
 
     board,
     tiles_cleared,
+    last_game_won,
 
 });

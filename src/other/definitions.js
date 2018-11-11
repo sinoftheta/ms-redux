@@ -49,3 +49,5 @@ export const SET_BOARD_SIZE = 7;
 export const RECORD_MOVE = 8;// should be combined into SET_FLAG and REVEAL_TILE ? 
 export const CLEAR_REPLAY = 9; // should be combined into RESET_GAME
 
+export const SET_LAST_GAME_WON = 10;
+
