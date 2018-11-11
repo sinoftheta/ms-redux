@@ -17,7 +17,6 @@ export const unflagged = 0;
 export const flagged = 1;
 export const questioned = 2;
 
-
 // TILE VALUES //
 export const mine = 9;
 
@@ -30,8 +29,6 @@ export const rightMouse = 2;
 export const up = 0;
 export const down = 1;
 
-
-
 // GAME STATES //
 export const preGameIdle = 0;
 export const gameInProgress = 1;
@@ -39,8 +36,16 @@ export const postGameIdle = 2;
 export const playingReplay = 3;
 export const postReplayIdle = 4;
 
-
-// ACTION TYPES // 
+// ACTIONS // 
 export const SET_MENU = 0;
-
+export const SET_GAME_STATE = 1;
+export const RESET_GAME = 2;
+export const REVEAL_TILE = 3;
+export const SET_MOUSE_STATE = 4;
+export const SET_FLAG = 5;
+export const SET_TILE_VALUE = 6;
+export const SET_BOARD_SIZE = 7;
+ 
+export const RECORD_MOVE = 8;// should be combined into SET_FLAG and REVEAL_TILE ? 
+export const CLEAR_REPLAY = 9; // should be combined into RESET_GAME
 

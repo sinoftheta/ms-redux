@@ -20,7 +20,7 @@ import {
 
     // GAME STATES // ... tiles only really care if they are in postGameIdle or
     preGameIdle, gameInProgress, postGameIdle, playingReplay, postReplayIdle, 
-    } from '../data/definitions'
+    } from '../other/definitions'
 
 class Tile extends Component {
 
