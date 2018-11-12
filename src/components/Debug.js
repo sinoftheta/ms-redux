@@ -14,6 +14,7 @@ class Debug extends Component {
                 <div>current_menu: {this.props.current_menu}</div>
                 <div>mouse_state: {this.props.mouse_state}</div>
                 <div>tiles_cleared: {this.props.tiles_cleared}</div>
+                <div>timer: {this.props.timer}</div>
                 <div>last_game_won: {this.props.last_game_won.toString()}</div>
                 <button onClick={() => this.resetGame()}>reset</button>
                 <br/>
@@ -33,6 +34,7 @@ const mapStateToProps = (state) => {
         mouse_state: state.mouse_state,
         tiles_cleared: state.tiles_cleared,
         last_game_won: state.last_game_won,
+        timer: state.timer,
 
     };
 };

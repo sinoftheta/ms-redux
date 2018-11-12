@@ -104,14 +104,10 @@
 .tile-not-revealed{
   background: transparent;
 }
-.tile-revealed{
+.tile-revealed, .mouse-pressed:hover{
   background: #cccccc;
 }
 
-/* this "adding classes only to use their hover" thing works, but maybe try aphrodite*/
-.mouse-pressed:hover{
-  background: #cccccc;
-}
 .tile-not-revealed.mouse-not-pressed:hover{
   background: linear-gradient(135deg, #ffffff80 0%,#ffffff27 100%);
 }

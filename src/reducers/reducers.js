@@ -16,6 +16,7 @@ import {
 
     // actions
     SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE, SET_LAST_GAME_WON,
+    INC_TIMER, CLEAR_TIMER,
  
     } from '../other/definitions';
 
@@ -87,7 +88,7 @@ const last_game_won = (state = false, action) =>{
 
 const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     switch(action.type){
-        // spread operators and slice() miiiiight make this kinda resource intensive idk
+        // spread operators and slice() may make this resource intensive
         case SET_FLAG:
 
         case REVEAL_TILE:
@@ -95,15 +96,6 @@ const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is j
                 ...state.slice(0, action.y),
                 [
                     ...state[action.y].slice(0, action.x),
-                    /*
-                    {
-                        revealed: true,
-                        flagged: state[action.y][action.x],
-                        questioned: state[action.y][action.x],
-                        val: state[action.y][action.x].val,
-                        border: state[action.y][action.x].border,
-                    },
-                    */
                     {
                         ...state[action.y][action.x],
                         revealed: true,
@@ -118,15 +110,6 @@ const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is j
                 ...state.slice(0, action.y),
                 [
                     ...state[action.y].slice(0, action.x),
-                    /*
-                    {
-                        revealed: false,
-                        flagged: false,
-                        questioned: false,
-                        val: action.val,
-                        border: state[action.y][action.x].border,
-                    },
-                    */
                    {
                         ...state[action.y][action.x],
                         val: action.val
@@ -141,7 +124,17 @@ const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is j
             return state;
     }
 }
-const replay = (state = [], action) => {
+const timer = (state = 0, action) => { 
+    switch(action.type){
+        case INC_TIMER:
+            return state + 1;
+        case CLEAR_TIMER:
+            return 0;
+        default:
+            return state;
+    }
+}
+const move_array = (state = [], action) => {
     switch(action.type){
         case 'RECORD_MOVE':
             return state.concat([action.move]);
@@ -151,8 +144,6 @@ const replay = (state = [], action) => {
             return state;
     }
 }
-
-//const timer
 
 
 
@@ -164,6 +155,7 @@ export default combineReducers({ //creates the root reducer, its imported and us
     mouse_state,
 
     board,
+    timer,
     tiles_cleared,
     last_game_won,
 

@@ -27,9 +27,9 @@ class App extends Component {
             <div className="App">
                 <div id="game-area">
                     <div id="game-timer-bar">
-                        {/*<Timer/>*/}
+                        {/*<Counter/>*/}
                         {/*<ResetButton/>*/}
-                        {/*<Timer/>*/}
+                        {/*<Counter/>*/}
                     </div>
 			        <Board/>
                 </div>
