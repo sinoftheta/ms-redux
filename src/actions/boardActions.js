@@ -199,8 +199,7 @@ export const leftClick = ( x, y ) => {
 
 
                 // start timer
-                //setStartTimestamp( (new Date()).getTime() ); //it dun work
-                setStartTimestamp();
+                dispatch(setStartTimestamp( (new Date()).getTime() ));
 
                 break;
             case gameInProgress:

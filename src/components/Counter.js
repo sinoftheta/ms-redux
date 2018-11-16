@@ -6,11 +6,17 @@ import { connect } from 'react-redux';
 
 
 class Counter extends Component { //props: type, value
+    constructor(props) {
+        super(props);
+        this.state = {
+            time: 0, // time in 100ths of a second
+        }
+    }
     render() {
-        let printedValue = this.props.value;
+        let printedValue = "004:00";
         
         return (
-            <div className="counter" id={"counter-" + this.props.type}> 
+            <div className="counter" id="timer"> 
                 {printedValue}
             </div>
         );
@@ -21,13 +27,13 @@ class Counter extends Component { //props: type, value
 // REDUX MAPS
 const mapStateToProps = (state) => {
     return {
-        board: state.board,
+        start_timestamp: state.start_timestamp,
+        game_state: state.game_state,
     };
 };
   
 const mapDispatchToProps = (dispatch) => {
     return {
-        setMenu: (id) => dispatch(setMenu(id)),
     };
 };
   

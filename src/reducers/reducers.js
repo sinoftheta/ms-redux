@@ -73,10 +73,9 @@ const mouse_state = (state = up, action) => {
 const last_game_won = (state = false, action) =>{
     switch(action.type){
         case SET_LAST_GAME_WON:
-        return action.val;
-    default:
-        return state;
-
+            return action.val;
+        default:
+            return state;
     }
 }
 
@@ -121,7 +120,7 @@ const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is j
 const start_timestamp = (state = 0, action) => {
     switch(action.type){
         case SET_START_TIMESTAMP:
-        console.log("HEE HAW2");
+            console.log("HEE HAW2");
             return action.val;
         default:
             return state;
