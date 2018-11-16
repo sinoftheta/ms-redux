@@ -43,21 +43,21 @@ export const advanced = 2;
 export const custom = 3;
 
 // ACTIONS // 
-export const SET_MENU           = 0;
-export const SET_GAME_STATE     = 1;
-export const RESET_GAME         = 2;
-export const REVEAL_TILE        = 3;
-export const SET_MOUSE_STATE    = 4;
-export const SET_FLAG           = 5;
-export const SET_TILE_VALUE     = 6;
-export const SET_BOARD_SIZE     = 7;
+export const SET_MENU               = 0;
+export const SET_GAME_STATE         = 1;
+export const RESET_GAME             = 2;
+export const REVEAL_TILE            = 3;
+export const SET_MOUSE_STATE        = 4;
+export const SET_FLAG               = 5;
+export const SET_TILE_VALUE         = 6;
+export const SET_BOARD_SIZE         = 7;
  
-export const RECORD_MOVE        = 8; // should be combined into SET_FLAG and REVEAL_TILE ? 
-export const CLEAR_REPLAY       = 9; // should be combined into RESET_GAME
+export const RECORD_MOVE            = 8; // should be combined into SET_FLAG and REVEAL_TILE ? 
+export const CLEAR_REPLAY           = 9; // should be combined into RESET_GAME
 
-export const SET_LAST_GAME_WON  = 10;
-export const INC_TIMER          = 11;
-export const CLEAR_TIMER        = 12;
+export const SET_LAST_GAME_WON      = 10;
+export const SET_START_TIMESTAMP    = 11;
+
 
 // TILE OBJECT DEFINITION //
 export const tileInit = {

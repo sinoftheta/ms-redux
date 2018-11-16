@@ -7,8 +7,6 @@ import { combineReducers } from 'redux';
 import {
     // tile object definition
     tileInit,
-    // tile borders
-    west, northWest, north, northEast, east, southEast, south, southWest, middle,
 
     //game states
     preGameIdle,
@@ -18,7 +16,7 @@ import {
 
     // actions
     SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE, SET_LAST_GAME_WON,
-    INC_TIMER, CLEAR_TIMER,
+    SET_START_TIMESTAMP,
  
     } from '../other/definitions';
 
@@ -120,12 +118,11 @@ const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is j
             return state;
     }
 }
-const timer = (state = -1, action) => { 
+const start_timestamp = (state = 0, action) => {
     switch(action.type){
-        case INC_TIMER:
-            return state + 1;
-        case CLEAR_TIMER:
-            return 0;
+        case SET_START_TIMESTAMP:
+        console.log("HEE HAW2");
+            return action.val;
         default:
             return state;
     }
@@ -151,7 +148,7 @@ export default combineReducers({ //creates the root reducer, its imported and us
     mouse_state,
 
     board,
-    timer,
+    start_timestamp,
     tiles_cleared,
     last_game_won,
 

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 // REDUX //
 import { connect } from 'react-redux';
-import { setMenu , resetGame, startTimer } from '../actions/general';
+import { setMenu , resetGame } from '../actions/general';
 
 class Debug extends Component {
     render() {
@@ -14,7 +14,7 @@ class Debug extends Component {
                 <div>current_menu: {this.props.current_menu}</div>
                 <div>mouse_state: {this.props.mouse_state}</div>
                 <div>tiles_cleared: {this.props.tiles_cleared}</div>
-                <div>timer (ms): {this.props.timer}</div>
+                <div>start_timestamp (ms): {this.props.start_timestamp}</div>
                 <div>last_game_won: {this.props.last_game_won.toString()}</div>
                 <button onClick={() => this.resetGame()}>reset</button>
                 <br/>
@@ -34,7 +34,7 @@ const mapStateToProps = (state) => {
         mouse_state: state.mouse_state,
         tiles_cleared: state.tiles_cleared,
         last_game_won: state.last_game_won,
-        timer: state.timer,
+        start_timestamp: state.start_timestamp,
 
     };
 };
@@ -43,7 +43,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setMenu: (id) => dispatch(setMenu(id)),
         resetGame: () => dispatch(resetGame()),
-        startTimer: (timer) => dispatch(startTimer(timer)),
     };
 };
 

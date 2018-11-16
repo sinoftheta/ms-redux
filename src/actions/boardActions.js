@@ -1,4 +1,7 @@
+// NPM PACKAGES //
 import seedrandom from 'seedrandom'; //https://www.npmjs.com/package/seedrandom
+
+// DEFINITIONS //
 import {
     //tile places
     west, northWest, north, northEast, east, southEast, south, southWest, middle, 
@@ -13,8 +16,12 @@ import {
     SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE, SET_LAST_GAME_WON,
 
     } from '../other/definitions';
+
+// FUNCTIONS //
 import { evalNeighbors } from '../other/functions';
-import { startTimer } from './general';
+
+// OTHER ACTIONS //
+import { setStartTimestamp } from './general';
 
 const totalMines = 15; 
 
@@ -41,7 +48,7 @@ export const setTileValue = ( x, y, val = mine ) => {
     }
 }
 export const revealTile = ( x, y,) => {
-    console.log("revealing [ " + x + " , " + y + " ]");
+    //console.log("revealing [ " + x + " , " + y + " ]");
     return{
         type: REVEAL_TILE,
         x: x,
@@ -192,6 +199,8 @@ export const leftClick = ( x, y ) => {
 
 
                 // start timer
+                //setStartTimestamp( (new Date()).getTime() ); //it dun work
+                setStartTimestamp();
 
                 break;
             case gameInProgress:
