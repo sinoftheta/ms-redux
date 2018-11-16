@@ -59,9 +59,17 @@ export const SET_LAST_GAME_WON  = 10;
 export const INC_TIMER          = 11;
 export const CLEAR_TIMER        = 12;
 
+// TILE OBJECT DEFINITION //
+export const tileInit = {
+    revealed: false,
+    flagged: false,
+    questioned: false,
+    val: -1, // # of mines surrounding tiles. 9 means a bomb
+    border: -1, 
+}
 
 
-// SETTINGS //
+// SETTINGS OBJECT DEFINITION // (values set are the default settings)
 export const defaultSettings = {
     gameMode: beginner,
     seed: "", // if seed is an empty string, it will be replaced with a random seed that will be saved in the replay

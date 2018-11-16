@@ -11,8 +11,10 @@ import {
 
     // actions
     SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE, SET_LAST_GAME_WON,
+
     } from '../other/definitions';
 import { evalNeighbors } from '../other/functions';
+import { startTimer } from './general';
 
 const totalMines = 15; 
 
@@ -187,6 +189,10 @@ export const leftClick = ( x, y ) => {
                 dispatch(uncoverTiles( x , y));
 
                 // save to replay
+
+
+                // start timer
+
                 break;
             case gameInProgress:
                 // uncover tiles

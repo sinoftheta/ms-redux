@@ -5,6 +5,8 @@ import { combineReducers } from 'redux';
 
 // DEFINITIONS //
 import {
+    // tile object definition
+    tileInit,
     // tile borders
     west, northWest, north, northEast, east, southEast, south, southWest, middle,
 
@@ -24,19 +26,13 @@ import {
 import { matrix } from '../other/functions';
 
 
-
-//this file contains the reducers for general purpose variables, including the main board memory
-
-
-//define all action types as integers to make the switch statements faster
-
-const tileInit = {
-        revealed: false,
-        flagged: false,
-        questioned: false,
-        val: 0, // # of mines surrounding tiles. 9 means a bomb
-        border: null, 
-}
+/* DESCRIPTION *******************************************************************************
+*
+* This file contains the reducers for general purpose variables, including the main board memory.
+*
+*
+*
+**********************************************************************************************/
 
 // STATES
 const current_menu = (state = 0, action) => { // 0 means no menu, each menu has a corresponding id
@@ -124,7 +120,7 @@ const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is j
             return state;
     }
 }
-const timer = (state = 0, action) => { 
+const timer = (state = -1, action) => { 
     switch(action.type){
         case INC_TIMER:
             return state + 1;
