@@ -87,7 +87,6 @@ class Tile extends Component {
             hoverClickClass = " mouse-pressed";
         }
         return (
-            // TODO: move onMouseUp, onMouseDown, and onContextMenu functions to another file. perhapse miscFunctions.js?
             // also might consider using event.buttons (plural) for more specified behavior https://www.w3schools.com/jsref/event_buttons.asp
             <div className={"tile" + hoverClickClass + tileStateClass + valueClass} id={ "" + this.props.x + "-" + this.props.y}
             onMouseUp={ 
@@ -128,7 +127,6 @@ class Tile extends Component {
                         default:
                             break;
                     }
-                    //console.log("onMouseDown, event.button = " + event.button)
                     
                 }}
             onContextMenu={

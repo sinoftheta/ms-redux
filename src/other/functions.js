@@ -5,7 +5,12 @@
 import {
     // tile borders
     west, northWest, north, northEast, east, southEast, south, southWest, middle,
-    } from './definitions';
+        } from './definitions';
+
+export const mouseUpLogic
+
+
+export const mouseDownLogic
 
 
 

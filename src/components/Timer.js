@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 
-class Counter extends Component { //props: type, value
+class Timer extends Component { //props: type, value
     constructor(props) {
         super(props);
         this.state = {
@@ -13,6 +13,8 @@ class Counter extends Component { //props: type, value
         }
     }
     render() {
+
+        
         let printedValue = "004:00";
         
         return (
@@ -37,4 +39,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
   
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);
