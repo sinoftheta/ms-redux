@@ -10,6 +10,7 @@ import GenSettings from './views/GenSettings';
 // COMPONENTS //
 import MenuToggleButton from './components/MenuToggleButton';
 import Board from './components/Board';
+import Timer from './components/Timer';
 import Debug from './components/Debug';
 
 // JSON //
@@ -29,7 +30,7 @@ class App extends Component {
                     <div id="game-timer-bar">
                         {/*<Counter/>*/}
                         {/*<ResetButton/>*/}
-                        {/*<Counter/>*/}
+                        <Timer/>
                     </div>
 			        <Board/>
                 </div>

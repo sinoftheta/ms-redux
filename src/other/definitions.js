@@ -35,6 +35,7 @@ export const gameInProgress = 1;
 export const postGameIdle = 2;
 export const playingReplay = 3;
 export const postReplayIdle = 4;
+export const pauseReplay = 5;
 
 // GAME MODES //
 export const beginner = 0;
