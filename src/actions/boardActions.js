@@ -187,7 +187,7 @@ export const leftClick = ( x, y ) => {
         //the engine will determine what to do with the click depending on the game_state
         //i.e. if its the first click of a game, or to ignore it...
     return(dispatch, getState) => {
-        console.log("leftClick generated at [ " + x + " , " + y + "]");
+        //console.log("leftClick generated at [ " + x + " , " + y + "]");
 
         //check game state
         switch(getState().game_state){
@@ -227,7 +227,6 @@ export const leftClick = ( x, y ) => {
             default:
                 // do nothing
         }
-        console.log(getState().move_array);
     }
 }
 export const rightClick = ( x, y ) => {

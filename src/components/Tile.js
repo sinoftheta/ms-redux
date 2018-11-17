@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 // REDUX //
 import { connect } from 'react-redux';
-import { leftClick } from '../actions/boardActions';
+import { leftClick , rightClick } from '../actions/boardActions';
 import { setMouseState } from '../actions/general';
 
 
@@ -75,18 +75,17 @@ class Tile extends Component {
 
 
 
-
-
     
 
         // assign hover classes based on click state
         if(this.props.mouse_state === up){ // holy shit this works, may have to have this depend on the revealed state as well
             hoverClickClass = " mouse-not-pressed";
         }
-        else{ //DISSABLE THIS WHEN GAMESTATE IS POSTGAMEIDLE OR POST REPLAY IDLE
+        else{ // DISSABLE THIS WHEN GAMESTATE IS POSTGAMEIDLE OR POST REPLAY IDLE
             hoverClickClass = " mouse-pressed";
         }
         return (
+            // double click behavior https://www.w3schools.com/jsref/event_ondblclick.asp
             // also might consider using event.buttons (plural) for more specified behavior https://www.w3schools.com/jsref/event_buttons.asp
             <div className={"tile" + hoverClickClass + tileStateClass + valueClass} id={ "" + this.props.x + "-" + this.props.y}
             onMouseUp={ (event) => { //somewhere in this function I have to set the mouse click state to up
@@ -119,9 +118,11 @@ class Tile extends Component {
                             break;
                         case middleMouse:
                             //do the 9 tile block thing
+                            //this.props.middleClick(this.props.x, this.props.y);
                             break;
                         case rightMouse:
                             //manipulate flags
+                            this.props.rightClick(this.props.x, this.props.y)
                             break;
                         default:
                             break;
@@ -159,6 +160,7 @@ const mapStateToProps = (state) => {
   const mapDispatchToProps = (dispatch) => {
     return {
         leftClick: (x,y) => dispatch(leftClick(x,y)),
+        rightClick: (x,y) => dispatch(rightClick(x,y)),
         setMouseState: (state) => dispatch(setMouseState(state)),
     };
   };
