@@ -89,25 +89,24 @@ class Tile extends Component {
         return (
             // also might consider using event.buttons (plural) for more specified behavior https://www.w3schools.com/jsref/event_buttons.asp
             <div className={"tile" + hoverClickClass + tileStateClass + valueClass} id={ "" + this.props.x + "-" + this.props.y}
-            onMouseUp={ 
-                (event) => { //somewhere in this function I have to set the mouse click state to up
-                    // mouseUp behavior is dependent on which type of mouse button it is
-                    switch(event.button){
-                        case leftMouse:
-                            this.props.leftClick(this.props.x, this.props.y); // should be renamed open tile?
-                            this.props.setMouseState(up); // may put this somehwere else in this function
-                            break;
-                        case middleMouse:
-                            break;
-                        case rightMouse:
-                            break;
-                        default:
-                            break;
-                    }
-                    //console.log("onMouseUp, event.button = " + event.button)
-                    
-                    //this.props.leftClick( this.props.x , this.props.y); 
-                }}
+            onMouseUp={ (event) => { //somewhere in this function I have to set the mouse click state to up
+                // mouseUp behavior is dependent on which type of mouse button it is
+                switch(event.button){
+                    case leftMouse:
+                        this.props.leftClick(this.props.x, this.props.y); // should be renamed open tile?
+                        this.props.setMouseState(up);
+                        break;
+                    case middleMouse:
+                        break;
+                    case rightMouse:
+                        break;
+                    default:
+                        break;
+                }
+                //console.log("onMouseUp, event.button = " + event.button)
+                
+                //this.props.leftClick( this.props.x , this.props.y); 
+            }}
             onMouseDown={
                 (event) => {
                     // prevent dragging

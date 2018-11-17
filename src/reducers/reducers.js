@@ -16,7 +16,7 @@ import {
 
     // actions
     SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE, SET_LAST_GAME_WON,
-    SET_START_TIMESTAMP,
+    SET_START_TIMESTAMP, RECORD_MOVE,
  
     } from '../other/definitions';
 
@@ -120,7 +120,6 @@ const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is j
 const start_timestamp = (state = 0, action) => {
     switch(action.type){
         case SET_START_TIMESTAMP:
-            console.log("HEE HAW2");
             return action.val;
         default:
             return state;
@@ -128,8 +127,13 @@ const start_timestamp = (state = 0, action) => {
 }
 const move_array = (state = [], action) => {
     switch(action.type){
-        case 'RECORD_MOVE':
-            return state.concat([action.move]);
+        case RECORD_MOVE:
+            return state.concat([{
+                x: action.x,
+                y: action.y,
+                t: action.time,
+                c: action.clickType,
+            }]);
         case 'CLEAR_REPLAY':
             return [];
         default:
@@ -150,5 +154,6 @@ export default combineReducers({ //creates the root reducer, its imported and us
     start_timestamp,
     tiles_cleared,
     last_game_won,
+    move_array,
 
 });

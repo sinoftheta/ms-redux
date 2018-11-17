@@ -15,6 +15,9 @@ import {
     // actions
     SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE, SET_LAST_GAME_WON,
 
+    // clicks
+    leftMouse, middleMouse, rightMouse, RECORD_MOVE,
+
     } from '../other/definitions';
 
 // FUNCTIONS //
@@ -23,7 +26,7 @@ import { evalNeighbors } from '../other/functions';
 // OTHER ACTIONS //
 import { setStartTimestamp } from './general';
 
-const totalMines = 15; 
+const totalMines = 10; // TEMPORARY WAY TO CHANGE THE NUMBER OF MINES IN A GAME LOOOOL IM LAZY
 
 
 
@@ -55,7 +58,15 @@ export const revealTile = ( x, y,) => {
         y: y,
     }
 }
-
+export const recordMove = (clickType, x, y, time) => {
+    return {
+        type: RECORD_MOVE,
+        x: x,
+        y: y,
+        time: time,
+        clickType: clickType,
+    };
+}
 export const placeMines = (x_init, y_init) => {
     // TODO; get minesCounter, and seed
     // from the settings the same way that 
@@ -176,8 +187,7 @@ export const leftClick = ( x, y ) => {
         //the engine will determine what to do with the click depending on the game_state
         //i.e. if its the first click of a game, or to ignore it...
     return(dispatch, getState) => {
-
-        //console.log("leftClick generated at [ " + x + " , " + y + "]");
+        console.log("leftClick generated at [ " + x + " , " + y + "]");
 
         //check game state
         switch(getState().game_state){
@@ -195,11 +205,12 @@ export const leftClick = ( x, y ) => {
                 // uncover tiles
                 dispatch(uncoverTiles( x , y));
 
+                let time = (new Date()).getTime();
                 // save to replay
-
+                dispatch(recordMove(leftMouse, x, y, time));
 
                 // start timer
-                dispatch(setStartTimestamp( (new Date()).getTime() ));
+                dispatch(setStartTimestamp(time));
 
                 break;
             case gameInProgress:
@@ -207,6 +218,8 @@ export const leftClick = ( x, y ) => {
                 dispatch(uncoverTiles( x , y));
 
                 // save to replay
+                dispatch(recordMove(leftMouse, x, y, (new Date()).getTime() ));
+
                 break;
             case playingReplay:
                 //pause the replay and let people play from that state???
@@ -214,6 +227,7 @@ export const leftClick = ( x, y ) => {
             default:
                 // do nothing
         }
+        console.log(getState().move_array);
     }
 }
 export const rightClick = ( x, y ) => {
@@ -221,15 +235,18 @@ export const rightClick = ( x, y ) => {
     //the engine will determine what to do with the click depending on the game_state
     //i.e. if its the first click of a game, or to ignore it...
     return(dispatch, getState) => {
+        //console.log("rightClick generated at [ " + x + " , " + y + "]");
 
-        console.log("rightClick generated at [ " + x + " , " + y + "]");
-
-        //check game state
+        // check game state
         switch(getState().game_state){
             case gameInProgress: 
-                //manipulate flag values
+                // manipulate flag values
+
+                // save to replay
+                dispatch(recordMove(rightMouse, x, y, (new Date()).getTime()));
             default:
                 // do nothing
         }
     }
 }
+

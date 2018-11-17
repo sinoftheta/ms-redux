@@ -32,10 +32,10 @@ export const resetGame = () => {
         type: RESET_GAME,
     }
 }
+
 // https://stackoverflow.com/questions/34577012/creating-a-stopwatch-with-redux
 
-export const setStartTimestamp = (val) => { // dispatcher must be broken 
-    console.log("HEE HAW1");
+export const setStartTimestamp = (val) => {
     return{
         type: SET_START_TIMESTAMP,
         val: val,
