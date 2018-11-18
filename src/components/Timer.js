@@ -47,7 +47,9 @@ class Timer extends Component { //props: type, value
                     // stop timer
                     clearInterval(this.timer);
 
-                    this.setState({last_game_state: this.props.game_state});
+                    this.setState({
+                        last_game_state: this.props.game_state,
+                    });
                     return;
             }
         }
@@ -58,7 +60,6 @@ class Timer extends Component { //props: type, value
         let printedValue = "";
         if(this.state.displayMinutes){
             // convert display_time to hour:minute:second:miliseconds format
-
             let minutes = Math.floor(this.state.display_time / 60000 ) % 60;
             if(minutes < 10) printedValue += "0";
             printedValue += minutes;
@@ -79,16 +80,15 @@ class Timer extends Component { //props: type, value
         else{
             // convert display_time to fixed point format
             let seconds = Math.floor(this.state.display_time / 1000 );
-            if(seconds < 10) printedValue += "0"; // change this logic
+            if(seconds < 10) printedValue += "00";
+            else if( seconds < 100) printedValue += "0";
+            //else printedValue += "000";
             printedValue += seconds;
             printedValue += ".";
 
             let decimal = Math.floor(this.state.display_time / visualTimeGranularity ) % 99;
             printedValue += decimal;
             if(decimal < 10) printedValue += "0";
-
-
-
 
         }
         
@@ -106,6 +106,7 @@ const mapStateToProps = (state) => {
     return {
         start_timestamp: state.start_timestamp,
         game_state: state.game_state,
+        move_array: state.move_array,
     };
 };
   

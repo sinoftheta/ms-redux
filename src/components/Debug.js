@@ -16,7 +16,7 @@ class Debug extends Component {
                 <div>tiles_cleared: {this.props.tiles_cleared}</div>
                 <div>start_timestamp (ms): {this.props.start_timestamp}</div>
                 <div>last_game_won: {this.props.last_game_won.toString()}</div>
-                <button onClick={() => console.log(this.props.move_array)}>log(move_array)</button>
+                <button onClick={() => console.log(JSON.stringify(this.props.move_array))}>log(move_array)</button>
                 <br/>
                 <button onClick={() => this.resetGame()}>reset</button>
                 <br/>
