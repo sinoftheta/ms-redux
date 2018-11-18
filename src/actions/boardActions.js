@@ -148,7 +148,7 @@ export const uncoverTiles = ( x , y ) => {
 
         // check if tile has already been revealed
         if(board[y][x].revealed){
-            //check win condition (for after recusrion)
+            // check win condition (for after recusrion) ...do I need this?
             if(getState().tiles_cleared === board.length * board[0].length - totalMines){ // TOTAL MINES MUST BE READ FROM STORE
                 dispatch(setGameState(postGameIdle));
                 dispatch(setLastGameWon(true));
@@ -159,20 +159,21 @@ export const uncoverTiles = ( x , y ) => {
         //reveal tile
         dispatch(revealTile( x , y));
 
+        // check lose condition
+        if(board[y][x].val === mine){
+            dispatch(setGameState(postGameIdle));
+            dispatch(setLastGameWon(false));
+            return;
+        }
+
+        // check win condition
         if(getState().tiles_cleared === board.length * board[0].length - totalMines){ // TOTAL MINES MUST BE READ FROM STORE
             dispatch(setGameState(postGameIdle));
             dispatch(setLastGameWon(true));
             return;
         }
 
-
-        //check lose condition
-        if(board[y][x].val === mine){
-            dispatch(setGameState(postGameIdle));
-            dispatch(setLastGameWon(false));
-        }
-
-        //if tile is a zero, recurse over all neighbors
+        // if tile is a zero, recurse over all neighbors
         if(board[y][x].val === 0){
             evalNeighbors( board , x , y , "flagged" , false , ( x , y ) => dispatch(uncoverTiles( x , y )) );
         }

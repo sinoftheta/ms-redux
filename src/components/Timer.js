@@ -16,7 +16,7 @@ class Timer extends Component { //props: type, value
     constructor(props) {
         super(props);
         this.state = {
-            displayMinutes: false, // determines how the time is displayed
+            displayMinutes: true, // determines how the time is displayed ...must be read from default settings. This should just be read from the store and not local state
             display_time: 0, // time to display in milliseconds
             last_game_state: 0,
         }
@@ -27,14 +27,12 @@ class Timer extends Component { //props: type, value
             switch(this.props.game_state){
                 case preGameIdle:
                     // reset timer
-
-
-                    this.setState({last_game_state: this.props.game_state});
+                    clearInterval(this.timer);
+                    this.setState({last_game_state: this.props.game_state, display_time: 0});
                     return;
                 case playingReplay:
                 case gameInProgress:
                     // start timer
-
                     this.timer = setInterval( 
                         () => this.setState({
                             display_time: (new Date()).getTime() - this.props.start_timestamp
@@ -58,11 +56,45 @@ class Timer extends Component { //props: type, value
         //convert display_time into a timestamp based on displayMinutes
 
         let printedValue = "";
+        if(this.state.displayMinutes){
+            // convert display_time to hour:minute:second:miliseconds format
+
+            let minutes = Math.floor(this.state.display_time / 60000 ) % 60;
+            if(minutes < 10) printedValue += "0";
+            printedValue += minutes;
+            printedValue += ":";
+
+
+            let seconds = Math.floor(this.state.display_time / 1000 ) % 60;
+            if(seconds < 10) printedValue += "0";
+            printedValue += seconds;
+            printedValue += ":";
+
+            let decimal = Math.floor(this.state.display_time / visualTimeGranularity ) % 99;
+            if(decimal < 10) printedValue += "0";
+            printedValue += decimal;
+            
+
+        }
+        else{
+            // convert display_time to fixed point format
+            let seconds = Math.floor(this.state.display_time / 1000 );
+            if(seconds < 10) printedValue += "0"; // change this logic
+            printedValue += seconds;
+            printedValue += ".";
+
+            let decimal = Math.floor(this.state.display_time / visualTimeGranularity ) % 99;
+            printedValue += decimal;
+            if(decimal < 10) printedValue += "0";
+
+
+
+
+        }
         
         return (
             <div className="counter" id="timer" onClick={() => this.setState(prevState => ({displayMinutes: !prevState.displayMinutes}))}> 
                 {printedValue}
-                {this.state.display_time}
             </div>
         );
     }
