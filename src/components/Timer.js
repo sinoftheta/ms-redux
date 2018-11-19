@@ -93,7 +93,7 @@ class Timer extends Component { //props: type, value
         }
         
         return (
-            <div className="counter" id="timer" onClick={() => this.setState(prevState => ({displayMinutes: !prevState.displayMinutes}))}> 
+            <div className="counter unselectable" id="timer" onClick={() => this.setState(prevState => ({displayMinutes: !prevState.displayMinutes}))}> 
                 {printedValue}
             </div>
         );

@@ -18,7 +18,7 @@ class Debug extends Component {
                 <div>last_game_won: {this.props.last_game_won.toString()}</div>
                 <button onClick={() => console.log(JSON.stringify(this.props.move_array))}>log(move_array)</button>
                 <br/>
-                <button onClick={() => this.resetGame()}>reset</button>
+                <button onClick={() => this.props.resetGame()}>reset</button>
                 <br/>
                 <button onClick={() => this.props.setMenu(Number(document.getElementById("debug-textarea-1").value))}> set current_menu</button>
                 <textarea rows="1" cols="4" id="debug-textarea-1"/><br/>

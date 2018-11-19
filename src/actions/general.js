@@ -28,9 +28,9 @@ export const editSettings = (setting, value) => {
     }
 }
 export const resetGame = () => {
-    return{
-        type: RESET_GAME,
-    }
+    return(dispatch, getState) => {
+        // read settings, set everything to the value specified in settings
+    };
 }
 
 // https://stackoverflow.com/questions/34577012/creating-a-stopwatch-with-redux

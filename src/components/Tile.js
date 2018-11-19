@@ -87,7 +87,7 @@ class Tile extends Component {
         return (
             // double click behavior https://www.w3schools.com/jsref/event_ondblclick.asp
             // also might consider using event.buttons (plural) for more specified behavior https://www.w3schools.com/jsref/event_buttons.asp
-            <div className={"tile" + hoverClickClass + tileStateClass + valueClass} id={ "" + this.props.x + "-" + this.props.y}
+            <div className={"tile unselectable" + hoverClickClass + tileStateClass + valueClass} id={ "" + this.props.x + "-" + this.props.y}
             onMouseUp={ (event) => { //somewhere in this function I have to set the mouse click state to up
                 // mouseUp behavior is dependent on which type of mouse button it is
                 switch(event.button){

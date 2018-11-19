@@ -12,6 +12,7 @@ import MenuToggleButton from './components/MenuToggleButton';
 import Board from './components/Board';
 import Timer from './components/Timer';
 import Debug from './components/Debug';
+import MatrixTest from './components/MatrixTest';
 
 // JSON //
 
@@ -48,6 +49,7 @@ class App extends Component {
                 
                 */}
                 <Debug/>
+                <MatrixTest/>
             </div>
         );
     }

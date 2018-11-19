@@ -91,11 +91,6 @@
   font-family: 'Bungee';
   font-size: 17px;
 
-  -webkit-user-select: none; /* Safari */        
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
-
   position: relative;
 }
 
@@ -143,9 +138,55 @@
 
 /**** COUNTERS ****/
 .counter {
-  font-family: 'Bungee';
+  display: flex;
+
+  font-family: monospace;
+  align-items: center;
+  justify-content: center;
   font-size: 17px;
+
+  background: #222222;
+  color: #8fe78f;
+
 }
 #timer {
   cursor: pointer;
+  width: 100px;
+}
+
+
+/*** ANIMATIONS ***/
+.animation-common {
+  transition: all 0.13s ease-in-out;
+  
+}
+.animation-hidden-modal { 
+  /* https://en.wikipedia.org/wiki/Rotation_matrix */
+  /* https://gist.github.com/stereokai/7666bfe93929b14c2dced148c79e0e97 */
+  /* transform: matrix3d() */
+  /* transform:  translateY(20px) rotateX(45deg); */
+  /* transform: rotate3d(1, 0, 1, 45deg); */
+  opacity: 0.0;
+  transform: rotate3d(1, 0, 0, -40deg);
+  
+}
+body {
+  perspective: 800px;
+}
+
+/******* UNSELECTABLE TEXT ********/
+.unselectable{
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+/***** MATRIX TEST ******/
+#test-matrix{
+  height: 100px;
+  width: 100px;
+  background: #8b16cf;
+  color: #ffffff;
+  cursor: pointer;
+  margin: 20px;
 }
