@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 // REDUX //
 import { connect } from 'react-redux';
 
+
 class MatrixTest extends Component {
     constructor(props) {
         super(props);

@@ -27,7 +27,7 @@ export const editSettings = (setting, value) => {
         value: value,
     }
 }
-export const resetGame = () => {
+export const resetGame = () => { // play another game with the same settings 
     return(dispatch, getState) => {
         // read settings, set everything to the value specified in settings
     };

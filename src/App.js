@@ -9,6 +9,7 @@ import GenSettings from './views/GenSettings';
 
 // COMPONENTS //
 import MenuToggleButton from './components/MenuToggleButton';
+import Overlay from './views/Overlay';
 import Board from './components/Board';
 import Timer from './components/Timer';
 import Debug from './components/Debug';
@@ -23,10 +24,10 @@ class App extends Component {
     render() {
         let overlay;
         if(this.props.current_menu !== 0){ // if the app is in a menu, make the game area unclickable
-            overlay = <div id="overlay" onClick={ () => this.props.setMenu(0) }/>
+            overlay = <Overlay/>
         }
         return ( // man my html needs a fuckin refactor already lol
-            <div className="App">
+            <div id="App">
                 <div id="game-area">
                     <div id="game-timer-bar">
                         {/*<Counter/>*/}
