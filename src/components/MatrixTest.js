@@ -19,7 +19,7 @@ class MatrixTest extends Component {
         }
         return (
             <div id="test-matrix" className={"animation-common unselectable" + transformClass} onClick={() => this.setState(prevState => ({applyTransform: !prevState.applyTransform}))}>
-                click me!
+                test the matrix transformation
             </div>
         );
     }
