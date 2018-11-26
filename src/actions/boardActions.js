@@ -26,7 +26,7 @@ import { evalNeighbors } from '../other/functions';
 // OTHER ACTIONS //
 import { setStartTimestamp } from './general';
 
-const totalMines = 10; // TEMPORARY WAY TO CHANGE THE NUMBER OF MINES IN A GAME LOOOOL IM LAZY
+const totalMines = 99; // TEMPORARY WAY TO CHANGE THE NUMBER OF MINES IN A GAME LOOOOL IM LAZY
 
 
 

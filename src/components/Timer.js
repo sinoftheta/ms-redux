@@ -80,8 +80,8 @@ class Timer extends Component { //props: type, value
         else{
             // convert display_time to fixed point format
             let seconds = Math.floor(this.state.display_time / 1000 );
-            if(seconds < 10) printedValue += "00";
-            else if( seconds < 100) printedValue += "0";
+            //if(seconds < 10) printedValue += "0";//0";
+            //else if( seconds < 100) printedValue += "0";
             //else printedValue += "000";
             printedValue += seconds;
             printedValue += ".";

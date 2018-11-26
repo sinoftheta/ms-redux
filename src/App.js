@@ -21,6 +21,11 @@ import MatrixTest from './components/MatrixTest';
 import { connect } from 'react-redux';
 
 class App extends Component {
+    componentDidMount(){
+        // read settings...?
+      
+        
+    }
     render() {
         let overlay;
         if(this.props.current_menu !== 0){ // if the app is in a menu, make the game area unclickable

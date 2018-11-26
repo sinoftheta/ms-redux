@@ -32,8 +32,8 @@ import { matrix } from '../other/functions';
 *
 **********************************************************************************************/
 
-// STATES
-const current_menu = (state = 0, action) => { // 0 means no menu, each menu has a corresponding id
+// APP STATES //
+const current_menu = (state = 0, action) => { // 0 means no menu, each menu has a corresponding id, this should be put in definitions
     switch(action.type){
         case SET_MENU:
             return action.id;
@@ -50,25 +50,10 @@ const game_state = (state = preGameIdle, action) => {
             return state;
     }
 }
-const tiles_cleared = (state = 0, action) => {
-    switch(action.type){
-        case RESET_GAME:
-            return 0;
-        case REVEAL_TILE:
-            return state + 1;
-        default:
-            return state;
-    }
-}
-const mouse_state = (state = up, action) => {
-    switch(action.type){
-        case SET_MOUSE_STATE:
-            return action.val;
-        default:
-            return state;
-    }
-}
-// FLAGS
+
+
+
+// FLAGS // maybe this counts as game memory
 
 const last_game_won = (state = false, action) =>{
     switch(action.type){
@@ -79,7 +64,8 @@ const last_game_won = (state = false, action) =>{
     }
 }
 
-const board = ( state = matrix( 10, 10, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
+// GAME MEMORY //
+const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     switch(action.type){
         // spread operators and slice() may make this resource intensive
         case SET_FLAG:
@@ -125,6 +111,24 @@ const start_timestamp = (state = 0, action) => {
             return state;
     }
 }
+const tiles_cleared = (state = 0, action) => {
+    switch(action.type){
+        case RESET_GAME:
+            return 0;
+        case REVEAL_TILE:
+            return state + 1;
+        default:
+            return state;
+    }
+}
+const mouse_state = (state = up, action) => {
+    switch(action.type){
+        case SET_MOUSE_STATE:
+            return action.val;
+        default:
+            return state;
+    }
+}
 const move_array = (state = [], action) => {
     switch(action.type){
         case RECORD_MOVE:
@@ -143,11 +147,21 @@ const move_array = (state = [], action) => {
 
 
 
-// CREATE ROOT REDUCERS
+// CREATE ROOT REDUCERS //
 export default combineReducers({ //creates the root reducer, its imported and used by the store
 
+
+    //menu state
     current_menu,
+    //associated "menu change warning" states/flags go here
+
+
+
+    //game state
     game_state,
+    //associated "game state change warning" states/flags go here (to be used for game animations)
+
+
     mouse_state,
 
     board,
