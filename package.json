@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "preact-compat": "^3.18.4",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-redux": "^5.1.0",
@@ -28,5 +29,9 @@
   ],
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0"
+  },
+  "alias": {
+    "react": "preact-compat",
+    "react-dom": "preact-compat"
   }
 }
