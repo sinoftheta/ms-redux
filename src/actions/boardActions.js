@@ -71,13 +71,19 @@ export const placeMines = (x_init, y_init) => {
     // TODO; get minesCounter, and seed
     // from the settings the same way that 
     // I get the board info from the settings.
-    return(dispatch, getState) => {
 
+
+    // optimization idea: when placing mines, take a copy of the board and mutate it in this function, and set the entire board state once its done...
+    return(dispatch, getState) => { // I APPEAR TO BE MUTATING THE STORE DIRECTLY???
+
+        let t1 = performance.now();
         // need to get all these from the store
         let minesToPlace = totalMines; 
         let salt  = "contra";
         let height = getState().board.length;
         let width = getState().board[0].length;
+
+        let board = getState().board; // THATS NO DEEP COPY...
 
         //check for too many mines to safeguard against infinite loops
         if(height * width - 9 < minesToPlace) return;
@@ -113,9 +119,14 @@ export const placeMines = (x_init, y_init) => {
             }
 
             dispatch(setTileValue(x,y));
+            //board[y][x].val = mine;
             
             minesToPlace--;
         }
+        //dispatch(setBoard(board));
+
+        let t2 = performance.now();
+        console.log("placing mines took: " + (t2 - t1) + " ms");
     }
 }
 
@@ -123,6 +134,9 @@ export const placeMines = (x_init, y_init) => {
 
 export const placeNumbers = () => {
     return(dispatch, getState) => {
+        
+        let t1 = performance.now();
+
         let board = getState().board;
         for(let i = 0; i < board.length; i++){
             for(let j = 0; j < board[0].length; j++){
@@ -140,6 +154,8 @@ export const placeNumbers = () => {
                 dispatch(setTileValue(j,i,adjMines));
             }
         }
+        let t2 = performance.now();
+        console.log("placing numbers took: " + (t2 - t1) + " ms");
     }
 }
 export const uncoverTiles = ( x , y ) => {

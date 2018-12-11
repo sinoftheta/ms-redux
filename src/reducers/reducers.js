@@ -24,6 +24,8 @@ import {
 import { matrix } from '../other/functions';
 
 
+//https://reactjs.org/docs/optimizing-performance.html REWRITE BOARD REDUCER
+
 /* DESCRIPTION *******************************************************************************
 *
 * This file contains the reducers for general purpose variables, including the main board memory.

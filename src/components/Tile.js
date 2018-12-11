@@ -22,22 +22,27 @@ import {
     preGameIdle, gameInProgress, postGameIdle, playingReplay, postReplayIdle, 
     } from '../other/definitions'
 
-class Tile extends Component {
+class Tile extends PureComponent {
+    //https://blog.lavrton.com/how-to-optimise-rendering-of-a-set-of-elements-in-react-ad01f5b161ae
+
+
+    shouldComponentUpdate(newProps){
+        // need to skip rerender when mines are placed and when numbers are placed
+
+        //return  newProps.tile.val === this.props.tile.val;
+        return true;
+    }
 
     render() { // tile numbers and graphics will need to be easily rotateable
-        //let tile = this.props.board[this.props.y][this.props.x];
-
-        let tile = this.props.tile_data;
+        
+        let tile = this.props.tile;
         let hoverClickClass = "";
         let tileStateClass = "";
         let valueClass = " tile-val-" + tile.val;
-        let val;
+        let displayVal;
         //tile rendering behavior
 
         //A tile can have the classes: tile-revealed
-
-
-        // NEED TO FORCE REVEAL ALL TILES IF GAME IS WON //
 
         // need to write equivelent logic
         switch(this.props.game_state){
@@ -48,7 +53,7 @@ class Tile extends Component {
             //only reveal revealed tiles
                 if(tile.revealed){
                     tileStateClass = " tile-revealed";
-                    (tile.val > 0  && tile.val < mine)? val = tile.val: val = null;
+                    (tile.val > 0  && tile.val < mine)? displayVal = tile.val: displayVal = null;
                 }
                 else{
                     tileStateClass = " tile-not-revealed";
@@ -61,13 +66,13 @@ class Tile extends Component {
                 // TODO: account for incorrect flags and the clicked mine
                 if(tile.revealed){
                     tileStateClass = " tile-revealed";
-                    (tile.val > 0  && tile.val < mine)? val = tile.val: val = null;
+                    (tile.val > 0  && tile.val < mine)? displayVal = tile.val: displayVal = null;
                 }
                 else{
                     tileStateClass = " tile-not-revealed";
                 }
                 if(tile.val === mine){
-                    val = '*';
+                    displayVal = '*'; // val should be an SVG of a mine
                     tileStateClass = " tile-revealed";
                 }
                 break;
@@ -78,7 +83,8 @@ class Tile extends Component {
     
 
         // assign hover classes based on click state
-        if(this.props.mouse_state === up){ // holy shit this works, may have to have this depend on the revealed state as well
+        // NEEDS REFACTOR, USE MOUSE OVER AND MOUSE OUT???
+        if(this.props.mouse_state === up){ 
             hoverClickClass = " mouse-not-pressed";
         }
         else{ // DISSABLE THIS WHEN GAMESTATE IS POSTGAMEIDLE OR POST REPLAY IDLE
@@ -140,7 +146,7 @@ class Tile extends Component {
             
             >
                 <div className="num-container">
-                    {val}
+                    {displayVal}
                 </div>
             </div>
         );
@@ -149,9 +155,13 @@ class Tile extends Component {
 
 
 // REDUX MAPS
-const mapStateToProps = (state) => {
+
+
+const mapStateToProps = (state , ownProps) => {
+    //make tile even better ???
+    //https://blog.lavrton.com/optimizing-react-redux-store-for-high-performance-updates-3ae6f7f1e4c1
     return {
-        //board: state.board,
+        tile: state.board[ownProps.y][ownProps.x],
         game_state: state.game_state,
         mouse_state: state.mouse_state,
     };
