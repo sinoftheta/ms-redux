@@ -15,9 +15,6 @@ import {
     // CLICKS //
     leftMouse, middleMouse, rightMouse,
 
-    // MOUSE STATES //
-    up, down,
-
     // GAME STATES // ... tiles only really care if they are in postGameIdle or
     preGameIdle, gameInProgress, postGameIdle, playingReplay, postReplayIdle, 
     } from '../other/definitions'
@@ -73,17 +70,8 @@ class Tile extends Component {
                 break;
         }
 
+        //assign styles based on drag 
 
-
-    
-
-        // assign hover classes based on click state
-        if(this.props.mouse_state === up){ // holy shit this works, may have to have this depend on the revealed state as well
-            hoverClickClass = " mouse-not-pressed";
-        }
-        else{ // DISSABLE THIS WHEN GAMESTATE IS POSTGAMEIDLE OR POST REPLAY IDLE
-            hoverClickClass = " mouse-pressed";
-        }
         return (
             // double click behavior https://www.w3schools.com/jsref/event_ondblclick.asp
             // also might consider using event.buttons (plural) for more specified behavior https://www.w3schools.com/jsref/event_buttons.asp
@@ -93,7 +81,6 @@ class Tile extends Component {
                 switch(event.button){
                     case leftMouse:
                         this.props.leftClick(this.props.x, this.props.y); // should be renamed open tile?
-                        this.props.setMouseState(up);
                         break;
                     case middleMouse:
                         break;
@@ -114,7 +101,6 @@ class Tile extends Component {
                     // mouseUp behavior is dependent on which type of mouse button it is
                     switch(event.button){
                         case leftMouse:
-                            this.props.setMouseState(down); // may put this somehwere else in this function
                             break;
                         case middleMouse:
                             //do the 9 tile block thing
@@ -152,8 +138,7 @@ class Tile extends Component {
 const mapStateToProps = (state) => {
     return {
         //board: state.board,
-        game_state: state.game_state,
-        mouse_state: state.mouse_state,
+        game_state: state.game_state
     };
   };
   
@@ -161,7 +146,6 @@ const mapStateToProps = (state) => {
     return {
         leftClick: (x,y) => dispatch(leftClick(x,y)),
         rightClick: (x,y) => dispatch(rightClick(x,y)),
-        setMouseState: (state) => dispatch(setMouseState(state)),
     };
   };
   

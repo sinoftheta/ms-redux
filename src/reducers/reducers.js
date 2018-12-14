@@ -11,9 +11,6 @@ import {
     //game states
     preGameIdle,
 
-    // mouse states
-    up,
-
     // actions
     SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE, SET_LAST_GAME_WON,
     SET_START_TIMESTAMP, RECORD_MOVE,
@@ -121,14 +118,6 @@ const tiles_cleared = (state = 0, action) => {
             return state;
     }
 }
-const mouse_state = (state = up, action) => {
-    switch(action.type){
-        case SET_MOUSE_STATE:
-            return action.val;
-        default:
-            return state;
-    }
-}
 const move_array = (state = [], action) => {
     switch(action.type){
         case RECORD_MOVE:
@@ -160,9 +149,6 @@ export default combineReducers({ //creates the root reducer, its imported and us
     //game state
     game_state,
     //associated "game state change warning" states/flags go here (to be used for game animations)
-
-
-    mouse_state,
 
     board,
     start_timestamp,
