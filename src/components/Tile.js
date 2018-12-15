@@ -20,11 +20,18 @@ import {
     } from '../other/definitions'
 
 class Tile extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pressed: false,
+        }
+    }
+
 
     render() { // tile numbers and graphics will need to be easily rotateable
         //let tile = this.props.board[this.props.y][this.props.x];
 
-        let tile = this.props.tile_data;
+        let tile = this.props.tile;
         let hoverClickClass = "";
         let tileStateClass = "";
         let valueClass = " tile-val-" + tile.val;
@@ -71,11 +78,15 @@ class Tile extends Component {
         }
 
         //assign styles based on drag 
+        if(this.state.pressed){
+            tileStateClass = " tile-revealed";
+        }
+        
 
         return (
             // double click behavior https://www.w3schools.com/jsref/event_ondblclick.asp
             // also might consider using event.buttons (plural) for more specified behavior https://www.w3schools.com/jsref/event_buttons.asp
-            <div className={"tile unselectable" + hoverClickClass + tileStateClass + valueClass} id={ "" + this.props.x + "-" + this.props.y}
+            <div className={"tile unselectable" + tileStateClass + valueClass} id={ "" + this.props.x + "-" + this.props.y}
             onMouseUp={ (event) => { //somewhere in this function I have to set the mouse click state to up
                 // mouseUp behavior is dependent on which type of mouse button it is
                 switch(event.button){
@@ -122,7 +133,8 @@ class Tile extends Component {
                     // I probably wont put anything else in this function. maybe a hint menu or something?
                     //console.log("onContextMenu, event.button = " + event.button)
                 }}
-            //onContextMenu="return false;"
+            onMouseEnter={null}
+            onMouseLeave={null}
             
             >
                 <div className="num-container">
@@ -135,10 +147,10 @@ class Tile extends Component {
 
 
 // REDUX MAPS
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        //board: state.board,
-        game_state: state.game_state
+        tile: state.board[ownProps.y][ownProps.x],
+        game_state: state.game_state,
     };
   };
   

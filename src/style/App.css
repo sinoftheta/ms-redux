@@ -123,7 +123,7 @@
 .tile-not-revealed{
   background: transparent;
 }
-.tile-revealed, .mouse-pressed:hover{
+.tile-revealed{
   background: #cccccc;
 }
 

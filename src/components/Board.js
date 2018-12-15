@@ -17,7 +17,7 @@ class Board extends Component {
                 <div id={"row-" + i} className="row" key={i}>
                     {
                         row.map((tile, j) =>
-                            <Tile x={j} y={i} key={j} tile_data={this.props.board[i][j]}/>
+                            <Tile x={j} y={i} key={j}/>
                         )
                     }
                     </div>
