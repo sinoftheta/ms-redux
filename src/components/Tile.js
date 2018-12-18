@@ -22,9 +22,7 @@ import {
 class Tile extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            pressed: false,
-        }
+        this.tile = React.createRef();
     }
 
 
@@ -76,13 +74,7 @@ class Tile extends Component {
                 }
                 break;
         }
-
-        //assign styles based on drag 
-        if(this.state.pressed){
-            tileStateClass = " tile-revealed";
-        }
         
-
         return (
             // double click behavior https://www.w3schools.com/jsref/event_ondblclick.asp
             // also might consider using event.buttons (plural) for more specified behavior https://www.w3schools.com/jsref/event_buttons.asp
@@ -133,8 +125,15 @@ class Tile extends Component {
                     // I probably wont put anything else in this function. maybe a hint menu or something?
                     //console.log("onContextMenu, event.button = " + event.button)
                 }}
-            onMouseEnter={null}
-            onMouseLeave={null}
+            onMouseEnter={(event) => {
+                console.log("onMouseEnter() @ (" + this.props.x +  "," + this.props.y + ")");
+                this.tile.current.classList.add("poop");
+            }}
+            onMouseLeave={(event) => {
+                console.log("onMouseLeave() @ (" + this.props.x +  "," + this.props.y + ")");
+                this.tile.current.classList.remove("poop");
+            }}
+            ref={this.tile}
             
             >
                 <div className="num-container">

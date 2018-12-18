@@ -127,7 +127,7 @@
   background: #cccccc;
 }
 
-.tile-not-revealed.mouse-not-pressed:hover{
+.tile-not-revealed:hover{
   background: linear-gradient(135deg, #ffffff80 0%,#ffffff27 100%);
 }
 
@@ -215,4 +215,7 @@ body {
   color: #ffffff;
   cursor: pointer;
   margin: 20px;
+}
+.poop{
+  background:red;
 }
