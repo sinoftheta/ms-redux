@@ -54,8 +54,8 @@ class App extends Component {
                 </div>
                 
                 */}
-                <Debug/>
-                <MatrixTest/>
+                {/*<Debug/>*/}
+                {/*<MatrixTest/>*/}
             </div>
         );
     }

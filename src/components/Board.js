@@ -9,6 +9,11 @@ import { setMenu } from '../actions/general';
 import Tile from './Tile';
 
 class Board extends Component {
+    shouldComponentUpdate(nextProps, nextState){
+        //should only update when the dimensions of the board change.
+        return  nextProps.x !== this.props.x || 
+                nextProps.y !== this.props.y;
+    }
     render() {
 
         // map the visible board
@@ -38,6 +43,8 @@ class Board extends Component {
 const mapStateToProps = (state) => {
     return {
         board: state.board,
+        x: state.board.length,
+        y: state.board[0].length,
     };
 };
   

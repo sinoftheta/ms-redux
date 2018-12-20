@@ -25,32 +25,35 @@ class Tile extends Component {
         this.tile = React.createRef();
     }
 
+    shouldComponentUpdate(nextProps){
+        if(nextProps.val !== this.props.val){
+            console.log("well damn");
+            return false;
+        }
+        if(nextProps.gameState === gameInProgress && this.props.gameState === preGameIdle){
+            console.log("well poop in my soup");
+            return false;
+        }
+        return true;
+    }
 
     render() { // tile numbers and graphics will need to be easily rotateable
         //let tile = this.props.board[this.props.y][this.props.x];
 
-        let tile = this.props.tile;
-        let hoverClickClass = "";
-        let tileStateClass = "";
-        let valueClass = " tile-val-" + tile.val;
+        let valueClass = " tile-val-" + this.props.val;
         let val;
-        //tile rendering behavior
-
-        //A tile can have the classes: tile-revealed
+        let tileStateClass;
 
 
-        // NEED TO FORCE REVEAL ALL TILES IF GAME IS WON //
-
-        // need to write equivelent logic
         switch(this.props.game_state){
             default:
             case preGameIdle:
             case gameInProgress:
             case playingReplay:
             //only reveal revealed tiles
-                if(tile.revealed){
+                if(this.props.revealed){
                     tileStateClass = " tile-revealed";
-                    (tile.val > 0  && tile.val < mine)? val = tile.val: val = null;
+                    (this.props.val > 0  && this.props.val < mine)? val = this.props.val: val = null;
                 }
                 else{
                     tileStateClass = " tile-not-revealed";
@@ -61,14 +64,14 @@ class Tile extends Component {
                 //reveal revealed tiles and all mines
 
                 // TODO: account for incorrect flags and the clicked mine
-                if(tile.revealed){
+                if(this.props.revealed){
                     tileStateClass = " tile-revealed";
-                    (tile.val > 0  && tile.val < mine)? val = tile.val: val = null;
+                    (this.props.val > 0  && this.props.val < mine)? val = this.props.val: val = null;
                 }
                 else{
                     tileStateClass = " tile-not-revealed";
                 }
-                if(tile.val === mine){
+                if(this.props.val === mine){
                     val = '*';
                     tileStateClass = " tile-revealed";
                 }
@@ -126,12 +129,12 @@ class Tile extends Component {
                     //console.log("onContextMenu, event.button = " + event.button)
                 }}
             onMouseEnter={(event) => {
-                console.log("onMouseEnter() @ (" + this.props.x +  "," + this.props.y + ")");
-                this.tile.current.classList.add("poop");
+                //console.log("onMouseEnter() @ (" + this.props.x +  "," + this.props.y + ")");
+                //this.tile.current.classList.add("poop");
             }}
             onMouseLeave={(event) => {
-                console.log("onMouseLeave() @ (" + this.props.x +  "," + this.props.y + ")");
-                this.tile.current.classList.remove("poop");
+                //console.log("onMouseLeave() @ (" + this.props.x +  "," + this.props.y + ")");
+                //this.tile.current.classList.remove("poop");
             }}
             ref={this.tile}
             
@@ -148,8 +151,11 @@ class Tile extends Component {
 // REDUX MAPS
 const mapStateToProps = (state, ownProps) => {
     return {
-        tile: state.board[ownProps.y][ownProps.x],
-        game_state: state.game_state,
+        revealed: state.board[ownProps.y][ownProps.x].revealed,
+        flagged: state.board[ownProps.y][ownProps.x].flagged,
+        questioned: state.board[ownProps.y][ownProps.x].questioned,
+        val: state.board[ownProps.y][ownProps.x].val,
+        game_state: state.game_state, // OH SHIT THIS IS CAUSING LAG WHEN THE STATE CHANGES FROM PREGAMEIDLE TO IN PROGRESS
     };
   };
   
