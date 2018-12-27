@@ -17,10 +17,10 @@ import reduxThunk from 'redux-thunk';
 import rootReducer from "./reducers/reducers";
 
 // why-did-you-update
-if (process.env.NODE_ENV !== 'production') {
+/*if (process.env.NODE_ENV !== 'production') {
     const {whyDidYouUpdate} = require('why-did-you-update')
     whyDidYouUpdate(React)
-}
+}*/
 
 // create the store
 const store = (initialState) => {

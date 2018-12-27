@@ -123,13 +123,14 @@
 .tile-not-revealed{
   background: transparent;
 }
-.tile-revealed{
-  background: #cccccc;
-}
-
 .tile-not-revealed:hover{
   background: linear-gradient(135deg, #ffffff80 0%,#ffffff27 100%);
 }
+.tile-revealed, .tile-pushed{
+  background: #cccccc;
+}
+
+
 
 .tile-val-1{
   color: #3532f5;
