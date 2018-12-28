@@ -65,39 +65,8 @@ const last_game_won = (state = false, action) =>{
 const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is just an advanced board, will change this later to read from a settings file.
     
     switch(action.type){
-        // spread operators and slice() may make this resource intensive
         case SET_FLAG:
-
         case REVEAL_TILE:
-            //console.log(action.x + " , " +  action.y); 
-            //console.log("the state:");
-            //console.log(state);
-            /*let xArr = [
-                ...state[action.y].slice(0, action.x),
-                {
-                    ...state[action.y][action.x],
-                    revealed: true,
-                },
-                ...state[action.y].slice(action.x + 1)
-            ];*/
-            /*let xArr = state[action.y].slice(0, action.x).concat(
-                Object.assign(state[action.y][action.x], {revealed: true}),
-            state[action.y].slice(action.x + 1) );
-            */
-
-
-            //console.log("0 to y:");
-            //console.log(state.slice(0, action.y));
-
-            //console.log("xArr: ");
-            //console.log(xArr);
-            //console.log("y+1 to end: ");
-            //console.log(state.slice(action.y + 1));
-
-            //let fuck = state.slice(0, action.y).concat( [xArr], state.slice(action.y + 1));
-            //console.log("final thing: ");
-            //console.log(fuck);
-            ////////////////////////return state.slice(0, action.y).concat( [xArr], state.slice(action.y + 1));
             /*return [
                 ...state.slice(0, action.y),
                 [
@@ -130,6 +99,7 @@ const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is j
             return state.slice(0, action.y).concat([state[action.y].slice(0, action.x).concat(
                 Object.assign(state[action.y][action.x], {val: action.val}),
             state[action.y].slice(action.x + 1) )], state.slice(action.y + 1));
+
         case SET_BOARD_SIZE:
             return matrix(action.height, action.width, tileInit);
         default:
