@@ -1,7 +1,6 @@
 // REDUX //
 import { combineReducers } from 'redux';
-
-// OBJECT SPREAD OPERATOR //
+import * as _ from 'lodash';
 
 // DEFINITIONS //
 import {
@@ -83,6 +82,7 @@ const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is j
             return state.slice(0, action.y).concat([state[action.y].slice(0, action.x).concat(
                 Object.assign(state[action.y][action.x], {revealed: true}),
             state[action.y].slice(action.x + 1) )], state.slice(action.y + 1));
+            
         case SET_TILE_VALUE:
             /*return [
                 ...state.slice(0, action.y),
@@ -96,9 +96,15 @@ const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is j
                 ],
                 ...state.slice( action.y + 1)
             ];*/
+            /*
             return state.slice(0, action.y).concat([state[action.y].slice(0, action.x).concat(
                 Object.assign(state[action.y][action.x], {val: action.val}),
-            state[action.y].slice(action.x + 1) )], state.slice(action.y + 1));
+            state[action.y].slice(action.x + 1) )], state.slice(action.y + 1))
+            */
+            //let nextState = _.cloneDeep(state);
+            //nextState[action.y][action.x].val = action.val;
+            state[action.y][action.x].val = action.val;
+            return state;
 
         case SET_BOARD_SIZE:
             return matrix(action.height, action.width, tileInit);

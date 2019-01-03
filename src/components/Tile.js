@@ -28,15 +28,23 @@ class Tile extends Component {
     }
 
     shouldComponentUpdate(nextProps){
-        /*if(nextProps.val !== this.props.val){
-            console.log("well damn");
+        
+        /*
+        if(nextProps.val !== this.props.val){// meant to proevent rerendering during  the placements of numbers 
             return false;
         }
-        if(nextProps.gameState === gameInProgress && this.props.gameState === preGameIdle){
-            console.log("well poop in my soup");
+        */
+        /*
+        if(nextProps.game_state === gameInProgress && this.props.game_state === preGameIdle){
+            console.log(`(${this.props.x},${this.props.y}) has val: ${this.props.val}\nand is recieving ${nextProps.val} as its next val \nthe game state is ${this.props.game_state} `);
             return false;
-        }*/
+        }
+        */
+        if(this.props.game_state === preGameIdle && nextProps.val !== this.props.val){
+           return false;
+        }
         return true;
+        //if CSU() returns false, render will NOT excecute and the title will not be updated...
     }
 
     render() { // tile numbers and graphics will need to be easily rotateable
@@ -153,7 +161,7 @@ class Tile extends Component {
                 
             }}
             ref={this.tile}
-            
+            title={`(${this.props.x},${this.props.y})\nrevealed? ${this.props.revealed?"true":"false"}\nflagged? ${this.props.flagged?"true":"false"}\nquestioned?: ${this.props.questioned?"true":"false"}\nval: ${this.props.val}\ngame_state: ${this.props.game_state}`}
             >
                 <div className="num-container">
                     {val}
