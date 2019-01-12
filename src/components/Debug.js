@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 // REDUX //
 import { connect } from 'react-redux';
-import { setMenu , resetGame } from '../actions/general';
+import { setMenu , resetGame } from '../redux/actions/general';
 
 class Debug extends Component {
     render() {

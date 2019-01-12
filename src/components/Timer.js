@@ -21,6 +21,10 @@ class Timer extends Component { //props: type, value
             last_game_state: 0,
         }
     }
+    shouldComponentUpdate(nextProps, nextState){
+        // rerender when the game state changes
+        return true;
+    }
     componentDidUpdate(){
         // do stuff when game_state changes
         if(this.props.game_state !== this.state.last_game_state){
@@ -106,7 +110,7 @@ const mapStateToProps = (state) => {
     return {
         start_timestamp: state.start_timestamp,
         game_state: state.game_state,
-        move_array: state.move_array,
+        //move_array: state.move_array, // ...why is this needed?
     };
 };
   

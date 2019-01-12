@@ -15,10 +15,10 @@ import {
     SET_MENU, SET_GAME_STATE, RESET_GAME, REVEAL_TILE, SET_MOUSE_STATE, SET_FLAG, SET_BOARD_SIZE, SET_TILE_VALUE, SET_LAST_GAME_WON,
     SET_START_TIMESTAMP, RECORD_MOVE,
  
-    } from '../other/definitions';
+    } from '../../other/definitions';
 
 // FUNCTIONS //
-import { matrix } from '../other/functions';
+import { matrix } from '../../other/functions';
 
 
 /* DESCRIPTION *******************************************************************************

@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 
 // REDUX //
 import { connect } from 'react-redux';
-import { leftClick , rightClick } from '../actions/boardActions';
-import { setMouseState } from '../actions/general';
+import { leftClick , rightClick } from '../redux/actions/boardActions';
+import { setMouseState } from '../redux/actions/general';
 
 
 // DEFINITIONS //
@@ -28,7 +28,7 @@ class Tile extends Component {
     shouldComponentUpdate(nextProps){
         if(nextProps.val !== this.props.val){
             console.log("well damn");
-            return false;
+            //return false;
         }
         if(nextProps.gameState === gameInProgress && this.props.gameState === preGameIdle){
             console.log("well poop in my soup");

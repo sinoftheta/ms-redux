@@ -18,10 +18,10 @@ import {
     // clicks
     leftMouse, middleMouse, rightMouse, RECORD_MOVE,
 
-    } from '../other/definitions';
+    } from '../../other/definitions';
 
 // FUNCTIONS //
-import { evalNeighbors } from '../other/functions';
+import { evalNeighbors } from '../../other/functions';
 
 // OTHER ACTIONS //
 import { setStartTimestamp } from './general';
@@ -182,7 +182,6 @@ export const uncoverTiles = ( x , y ) => {
 
 
 // BOARD CLICK BEHAVIOR
-
 export const leftClick = ( x, y ) => {
         // tiles are always able to report their clicks
         //the engine will determine what to do with the click depending on the game_state
@@ -200,11 +199,14 @@ export const leftClick = ( x, y ) => {
                 dispatch(placeMines(x, y));
                 dispatch(placeNumbers());
 
+
                 // change game state 
                 dispatch(setGameState(gameInProgress));
 
                 // uncover tiles
                 dispatch(uncoverTiles( x , y));
+
+
 
                 let time = (new Date()).getTime();
                 // save to replay

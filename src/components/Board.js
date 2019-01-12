@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 // REDUX //
 import { connect } from 'react-redux';
-import { setMenu } from '../actions/general';
+import { setMenu } from '../redux/actions/general';
 
 // COMPONENTS //
 import Tile from './Tile';
@@ -11,8 +11,10 @@ import Tile from './Tile';
 class Board extends Component {
     shouldComponentUpdate(nextProps, nextState){
         //should only update when the dimensions of the board change.
-        return  nextProps.x !== this.props.x || 
+        /*return  nextProps.x !== this.props.x || 
                 nextProps.y !== this.props.y;
+                */
+            return false;
     }
     render() {
 

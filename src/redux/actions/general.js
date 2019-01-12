@@ -6,7 +6,7 @@ import {
     //game states
     gameInProgress,
  
-    } from '../other/definitions';
+    } from '../../other/definitions';
 
 export const setMenu = (id) => {
     return{

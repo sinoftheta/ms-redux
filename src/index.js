@@ -10,26 +10,14 @@ import App from './App';
 
 // REDUX //
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from "redux";
-
-// REDUX THUNK //
-import reduxThunk from 'redux-thunk';
-import rootReducer from "./reducers/reducers";
-
+import {store} from './redux/store.js';
 // why-did-you-update
 if (process.env.NODE_ENV !== 'production') {
     const {whyDidYouUpdate} = require('why-did-you-update')
     whyDidYouUpdate(React)
 }
 
-// create the store
-const store = (initialState) => {
-    return createStore(
-        rootReducer,
-        initialState,
-        applyMiddleware(reduxThunk),   
-    );
-}
+
 
 // render the app
 ReactDOM.render( 
