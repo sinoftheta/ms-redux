@@ -19,6 +19,8 @@ import {
     preGameIdle, gameInProgress, postGameIdle, playingReplay, postReplayIdle, 
     } from '../other/definitions'
 
+
+    // TODO: use event.buttons instead of event.button in some/all cases? 
 class Tile extends Component {
     constructor(props) {
         super(props);
@@ -26,14 +28,14 @@ class Tile extends Component {
     }
 
     shouldComponentUpdate(nextProps){
-        if(nextProps.val !== this.props.val){
+        /*if(nextProps.val !== this.props.val){
             console.log("well damn");
             //return false;
         }
         if(nextProps.gameState === gameInProgress && this.props.gameState === preGameIdle){
             console.log("well poop in my soup");
             return false;
-        }
+        }*/
         return true;
     }
 
@@ -87,6 +89,9 @@ class Tile extends Component {
                 switch(event.button){
                     case leftMouse:
                         this.props.leftClick(this.props.x, this.props.y); // should be renamed open tile?
+                        this.tile.current.classList.remove("tile-pushed");
+
+
                         break;
                     case middleMouse:
                         break;
@@ -107,6 +112,9 @@ class Tile extends Component {
                     // mouseUp behavior is dependent on which type of mouse button it is
                     switch(event.button){
                         case leftMouse:
+                            this.tile.current.classList.add("tile-pushed");
+                            this.tile.current.classList.remove("tile-not-revealed");
+
                             break;
                         case middleMouse:
                             //do the 9 tile block thing
@@ -130,11 +138,19 @@ class Tile extends Component {
                 }}
             onMouseEnter={(event) => {
                 //console.log("onMouseEnter() @ (" + this.props.x +  "," + this.props.y + ")");
-                //this.tile.current.classList.add("poop");
+                //upon entering with a pushed left mouse
+                if(event.buttons === 1){ // this will change to a switch statement when I impliment the middle click thing
+                    this.tile.current.classList.add("tile-pushed");
+                    this.tile.current.classList.remove("tile-not-revealed");
+                }
             }}
             onMouseLeave={(event) => {
                 //console.log("onMouseLeave() @ (" + this.props.x +  "," + this.props.y + ")");
-                //this.tile.current.classList.remove("poop");
+                this.tile.current.classList.remove("tile-pushed");
+                if(!this.tile.current.classList.contains("tile-revealed")){
+                    this.tile.current.classList.add("tile-not-revealed");
+                }
+                
             }}
             ref={this.tile}
             

@@ -12,10 +12,10 @@ import App from './App';
 import { Provider } from 'react-redux';
 import {store} from './redux/store.js';
 // why-did-you-update
-if (process.env.NODE_ENV !== 'production') {
+/*if (process.env.NODE_ENV !== 'production') {
     const {whyDidYouUpdate} = require('why-did-you-update')
     whyDidYouUpdate(React)
-}
+}*/
 
 
 

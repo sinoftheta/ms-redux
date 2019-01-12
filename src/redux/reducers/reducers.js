@@ -95,7 +95,7 @@ const board = ( state = matrix( 30, 16, tileInit) , action) => { // default is j
                 ...state.slice( action.y + 1)
             ];
         case SET_BOARD_SIZE:
-            return matrix(action.height, action.width, tileInit)
+            return matrix(action.height, action.width, tileInit);
         default:
             return state;
     }
